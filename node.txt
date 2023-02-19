@@ -1,0 +1,95 @@
+##--PRIMEIRO PROJETO
+
+CRIANDO UM PROJETO NODE = npm init
+
+CRIANDO UM PROJETO NODE RAPIDO = npm init -y
+
+EXECUTANDO UM ARQUIVO = node nomeArquivo.js
+
+
+
+
+#--INSTALANDO TYPESCRIPT
+
+INSTALANDO TYPESCRIPT GLOBALMENTE = npm install -g typescript
+
+CRIANDO ARQUIVO DE CONFIGURAÇÃO TS tsconfig.json = tsc --init
+
+
+
+
+
+#--CONFIGURAÇÃO TYPESCRIPT
+
+INSTALAR TYPES DO TYESPESCRIPT =  npm install --save -dev @types/node
+
+EM TSCONFIG.JSON 
+
+"moduleResulotion":"node" = comando que mostra que typescript vai trabalhar com o node
+
+"outDir": "./dist" = comando que mostra onde sera a saida do javascript
+
+"rootDir": "./src" = comando que mostra onde o ts sera trabalhado
+
+"target": "ES6" = comando que mostra qual ecmascript vou usar
+
+ tsc - w = roda o watchmode, monitora toda as alterações no codigo e transforme em js.
+
+
+
+
+#--SCRIPTS PACKAGE.JSON
+
+NO OBJETO SCRIPTS PORSSO CRIAR ATALHOS
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node dist/index.js", --> npm run start vai rodar o node em um diretorio especificado
+    "wts":"tsc -w" --> npm run wts vai rodar o watchmode do ts
+  }
+
+
+
+
+
+#--COMMON JS
+
+module.exports.Nomefunção = Nomefunção  -> exportando uma função em common js
+
+const variavel = require('./Matematica') -> importando um arquivo common js
+
+
+
+
+#--IMPORT EXPORT ECMASCRIPT6
+
+export function () {} = exportando uma função no ecmascript6
+import {somar} from './Matematica'
+console.log(somar(2,3))  = usando função
+
+
+export defaut {somar,subtrair} = exportando varias funções de maneira defaut
+import Matematica from './Matematica'
+Matematica.somar(2,3) = usando função
+
+
+import * as Matematica from './Matematica' = importando todas as funções e chamando de Matematica do arquivo Matematica
+Matematica.somar(2,3) = usando função
+
+
+
+
+
+#--NODEMON
+
+npm install -g nodemon = comando para instalar monitorador e executor js
+nodemon ./dist index.js = executando um arquivo com o nodemon
+
+#--TS-NODE
+npm install -g ts-node = comando para instalar executor de typescript globalmente
+ts-node ./src index.ts = executando ts-node
+
+nodemon ./src index.ts = ele vai monitorar e  executar apenas o codigo typescript
+
+
+
