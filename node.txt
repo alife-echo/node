@@ -93,3 +93,19 @@ nodemon ./src index.ts = ele vai monitorar e  executar apenas o codigo typescrip
 
 
 
+#--EXPRESS
+
+npm install express = instalando express (maneria facilitada de criar servidores,rotas)
+npm install --save @types/express = instalando o auto complete do express
+
+
+import express, {Request,Response} from 'express' ----> chamando o express é tambem dois tipos de requisição
+const server = express()  ----> armazenando a função express em uma variavel
+				
+       //pagina inicial	 //types req res
+server.get('/',(req:Request,res:Response)=>{
+       res.send('<h1>Olá</h1>')    -----> na pagina inicial '/' quero que seja enviado uma requisição do tipo response com um titulo do site "Olá"
+})
+
+
+server.listen(80) --> cria o servidor na porta 80
