@@ -1,6 +1,15 @@
 import express,{Request,Response } from "express";
+
+import mainRoutes from './routers/index'
+import routerPainel from './routers/painel'
 const server = express()
 
+
+server.use(mainRoutes)
+server.use('/painel',routerPainel)
+
+
+/*
 server.get('/',(req:Request,res:Response)=>{
      res.send('Olá')
 })
@@ -11,7 +20,7 @@ server.get('/voo/:origem-:destino',(req:Request,res:Response)=>{
     let {origem,destino} = req.params
     res.send(`Procurando voos  de ${origem.toUpperCase()} até ${destino.toUpperCase()}`)
 })
-
+*/
 
 /*
  server.get('rota',(pedido servidor,resposta servidor)=>{

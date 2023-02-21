@@ -109,3 +109,132 @@ server.get('/',(req:Request,res:Response)=>{
 
 
 server.listen(80) --> cria o servidor na porta 80
+
+
+
+
+
+#--ROTAS --> O QUE VEM DEPOIS DO DOMINIO
+
+ROTAS = um caminho que pode levar a paginas,arquivos,midias,videos etc.
+
+ROTAS ESTATICAS = rotas sem alteração, em que sua pagina e conteudo são o mesmo
+
+ROTAS DINAMICAS = rotas com alteração, o template pode ser até o mesmo, mas o conteudo do corpo sera difirente.
+
+
+
+
+
+#--TRABALHANDO COM ROTAS --> 
+ 
+server.get('rota',(pedido servidor,resposta servidor)=>{
+     resposta.send('mensagem que sera enviada para o usuario')
+ }) 
+
+GET = requisição para acessar algo acessar algo ao servidor
+POST = requsição para mandar algo ao servidor
+GET , POST , PUT , DELETE
+
+:nome = sintaxe para rota dinamica
+
+:nome = o usuario digitara algo, o server vai procurar algo relacionado
+
+EXEMPLO: 
+           : -> campos que serão digitados pelo usuario
+
+  server.get('/voo/:origem-:destino',(req:Request,res:Response)=>{
+
+    let {origem,destino} = req.params  -> como pegar o que foi digitado pelo usuario 
+
+    res.send(`Procurando voos  de ${origem.toUpperCase()} até ${destino.toUpperCase()}`) -> enviando para o usuario o que foi digitado
+})
+
+
+
+
+
+
+
+
+#---CRIANDO ROTAS COM ROUTER
+
+
+OBSERVAÇÃO = criar uma pasta "routers" e um arquivo index.ts nela, para guardar nossas rotas principais
+OBSERVAÇÃO = dentro da pasta "routers" podemos criar outros arquivos contendo rotas de cada parte especifica do nosso sistema
+EXEMPLO = painel --> rotas que são partes do painel
+
+
+
+
+
+TODO O CODIGO ABAIXO ESTA GUARDADO EM UMA PASTA  ./routers/index
+
+import {Router,Request,Response) from 'express' --> importando o router
+
+const router = Router() --> guardarndo a função router em uma variavel
+
+router.get('/',(req:Request,res:Response)=>{ 
+   res.send('Olá')
+  })
+
+
+router.get('/contato',(req:Request,res:Response)=>{
+    res.send('Formulário de Contato')
+})
+
+
+router.get('/sobre',(req:Request,res:Response)=>{
+     res.send('Página institucional sobre a empresa')
+})
+
+export default router
+
+
+
+
+
+
+TODO O CODIGO ABAIXO ESTA GUARDADO EM UMA PASTA  ./routers/painel
+
+
+import {Router,Request,Response} from 'express'
+
+const router = Router()
+
+router.get('/',(req:Request,res:Response)=>{
+     res.send('Home Painel')
+})
+
+router.get('/formulario',(req:Request,res:Response)=>{
+    res.send('Formulário de Cadastro painel')
+})
+
+
+export default router
+
+
+
+
+
+
+#--USANDO AS ROTAS CRIADAS NA PASTA routers
+
+
+import mainRouters from './routers/index'
+import painelRouters from './routers/painel'
+import express from "express";
+
+const server = express()
+
+server.use(mainRouters) --> não precisa de prefixo porque a rota raiz do site e '/'
+server.use('/painel',painelRouters) --> para rotas diferentes crie um prefixo indicando qual é a rota raiz das rotas diferentes, nesse caso é '/painel'
+
+
+server.listen(80)
+
+
+
+
+
+
