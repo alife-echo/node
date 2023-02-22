@@ -1,13 +1,19 @@
 import express,{Request,Response } from "express";
-
+import path from "path";
 import mainRoutes from './routers/index'
 import routerPainel from './routers/painel'
 const server = express()
 
+//__dirname = especifica em qual diretorio estou,seguindo o arquivo onde foi declarado
+console.log(path.join(__dirname,'../public'))
 
+server.use('/static',express.static(path.join(__dirname,'../public')))
 server.use(mainRoutes)
 server.use('/painel',routerPainel)
 
+server.use((req:Request,res:Response)=>{
+   res.status(404).send('Página não encontrada!') 
+})
 
 /*
 server.get('/',(req:Request,res:Response)=>{

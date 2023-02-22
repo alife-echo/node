@@ -238,3 +238,54 @@ server.listen(80)
 
 
 
+
+#--PÁGINA NÃO ENCONTRADA
+
+caso ele tenha passado pelas rotas principais e não achou o espeficicado, preciso criar uma rota para ultimo recurso, caso na linha de execução o servidor não encontre nada.
+
+server.use(mainRoutes)
+server.use('/painel',routerPainel)
+
+não achou nada
+res.status(404) = quando a pagina não for encontrada
+server.use((req:Request,res:Response)=>{
+   res.status(404).send('Página não encontrada!')  -->caso o erro seja 404, envia para o usuario o status que a pagina não foi encontrada 
+})
+
+
+
+
+
+#--PÁGINA PUBLICA E ARQUIVOS ESTATICOS
+
+Criar uma pasta publica e colocar arquivos e pastas para serem acessados pelo o publico externo
+
+---public
+--imgs
+-google.jpg
+--css
+-style.css
+
+server.use(express.static('public')) --> vai criar uma rota para a pasta public, podendo ser acessado, com conteudo estatico
+posso acessar imgs,estilos,codigos e etc
+
+exemplo : localhost/css/style.css
+
+server.use('/static',express.static('public')) --> (opcional), colocando um prefixo para acessar as pastas
+
+exemplo : localhost/static/css/style.css
+
+
+--- OBSERVAÇÃO : caso o codigo seja executado na raiz do hd,tratamentos devem ser feitos
+
+import path from 'path' -> import a biblioteca path do node
+
+__dirname = especifica em qual diretorio estou
+
+path.join(__dirname,'../public') -->caso o server esteja dentro da pasta src, comando que mostra o caminho completo para a pasta public
+path.join(__dirname,'./public') -->caso o server esteja fora da pasta src, comando que mostra o caminho completo para a pasta public
+
+server.use(express.static(path.join(__dirname,'../public'))) ---> comando que cria uma rota para a pasta publica, mas agora com o camino completo da pasta public, prevensão de erros.
+
+
+
