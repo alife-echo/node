@@ -289,3 +289,7 @@ server.use(express.static(path.join(__dirname,'../public'))) ---> comando que cr
 
 
 
+MUSTACHE
+
+npm i mustache-express
+npm i --save-dev @types/mustache-express
