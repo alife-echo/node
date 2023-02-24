@@ -289,7 +289,18 @@ server.use(express.static(path.join(__dirname,'../public'))) ---> comando que cr
 
 
 
-MUSTACHE
+#--MUSTACHE
 
-npm i mustache-express
-npm i --save-dev @types/mustache-express
+npm i mustache-express = instalar mustache express
+npm i --save-dev @types/mustache-express = instalar os types do mustache
+
+
+
+"start-dev":"nodemon -e ts,json,mustache src/server.ts"
+import mustache from 'mustache-express'
+server.set('view engine','mustache')
+server.set('views',path.join(__dirname,'./views'))
+server.engine('mustache',mustache())
+router.get('/',(req:Request,res:Response)=>{
+     res.render('home')
+})

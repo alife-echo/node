@@ -10,6 +10,13 @@
     <h1> Título da página </h1>
     <hr>
 
-    <p>Olá Tudo Bem Álife</p>
+    {{#user.showWelcome}}
+    <p>Olá Tudo Bem {{user.name}}</p>
+    {{/user.showWelcome}}
+
+
+    {{#user.showOld}}
+        <p>{{user.name}} você é maior que 18 anos</p>
+    {{/user.showOld}}
 </body>
 </html>
