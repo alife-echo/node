@@ -289,18 +289,109 @@ server.use(express.static(path.join(__dirname,'../public'))) ---> comando que cr
 
 
 
+
+
+
+
+
+
+
+
+
 #--MUSTACHE
+
+
 
 npm i mustache-express = instalar mustache express
 npm i --save-dev @types/mustache-express = instalar os types do mustache
 
 
 
-"start-dev":"nodemon -e ts,json,mustache src/server.ts"
-import mustache from 'mustache-express'
-server.set('view engine','mustache')
-server.set('views',path.join(__dirname,'./views'))
-server.engine('mustache',mustache())
+"start-dev":"nodemon -e ts,json,mustache src/server.ts" = preciso fazer com que o nodemon reconheça o mustache a cada ctrl + s, --> ts,json,mustache
+
+
+import mustache from 'mustache-express' = importando a biblioteca
+
+server.set('view engine','mustache') --> colocando no server qual sera a ferramente de visualização
+server.set('views',path.join(__dirname,'./views')) --> colocando no server o nome da pasta que tera as visualizaçoes e seu caminho
+server.engine('mustache',mustache())  --> chamando o mustache para a engenharia de visualização do server
+
+res.render() = mandar um arquivo para o servidor rederizar
+
 router.get('/',(req:Request,res:Response)=>{
-     res.render('home')
+     res.render('home') --> renderizando a home dentro da pasta view
 })
+
+todo arquivo de visualização precisa ter a extensão : arquivo.mustache
+
+
+
+
+
+
+#--EXIBINDO INFORMAÇÕES NO MUSTACHE
+
+router.get('/',(req:Request,res:Response)=>{
+  let user = { 
+    name:'Álife', ---> precisamos sempre criar nossas informações dentro da rota onde estamos
+    age:49
+
+ }
+ res.render('home',{
+         user,    --> as informações precisa sempre estar dentro do render para serem recebidas pelo mustache
+	   test:'testando' --> posso colocar tanto um objeto como uma variavel tambem
+})
+})
+
+home.mustache
+
+
+ <p> Olá tudo bem {{user.name}} </>
+ <p> usando apenas variavel {{test}} </p>
+
+ 
+
+
+
+
+
+
+##-- EXIBIÇÃO CONDICIONAL
+
+
+OBSERVAÇÃO = o arquivo mustache não consegue criar uma logica de programação, toda a logica precisa estar em um arquivo javascript, o mustache vai apenas exibir
+
+
+  {{}} --> abrindo  SINTAXE PARA UMA CONDICIONAL
+
+  {{/}} -- fechando
+
+  
+router.get('/',(req:Request,res:Response)=>{
+
+  let age : number = 21
+
+  let show : boolean = false
+
+ if(age > 18){
+  show = true     --->criando logica para exibição de nome
+}
+ else{
+  show = false
+}
+ let user = {
+  name:'Álife'
+}
+ 
+ res.render('home',{
+     user,
+     show 
+ })
+ })
+
+
+home.mustache
+
+{{#show}}
+  <p>Olá {{user.name}} você é maior de idade</p>     --> caso o álife seja maior de idade ela mostra uma tag com informações, caso ela não seja, nada é mostrado.
+{{/show}}
