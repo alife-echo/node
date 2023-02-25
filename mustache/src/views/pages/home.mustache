@@ -18,7 +18,7 @@
     <h2>Produtos</h2>
     <ul> 
     {{#products}}
-        <li>{{title}} - R$ {{price}}</li>
+      {{>partials/productItem}}
     {{/products}}
     </ul>
  
@@ -30,5 +30,4 @@
       {{^list}}  <!--maneira de fazer um else-->
         Não há frases motivacionais hoje
       {{/list}}
-</body>
-</html>
+{{>partials/footer}}

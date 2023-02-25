@@ -403,9 +403,6 @@ home.mustache
 
 
 
-
-
-
 #--LOOPS
 
 
@@ -414,11 +411,11 @@ res.render('home',{
          user,
          products:[
             {title:'Produto X',price:10},
-            {title:'Produto Y',price:15},
-            {title:'Produto W',price:20}
+            {title:'Produto Y',price:15},       ---> array com objetos
+            {title:'Produto W',price:20} 
         ],
         list:[
-            'Alguma coisa legal',
+            'Alguma coisa legal',            -----> array simples
             'outra frase' 
         ]
         
@@ -426,19 +423,112 @@ res.render('home',{
 
 
 
-{{#products}}
-   <li>{{title}} - R$ {{price}}</li> ---> maneira de exibir um loop
-{{/products}}
+<ul>
+	{{#products}} --> por si só ele faz a iteração pelos objetos
+   		<li>{{title}} - R$ {{price}}</li> ---> propriedades dos objetos,maneira de exibir um array com objetos
+	{{/products}}
+</ul>
+ 
+
+    <hr>
+      {{#list}}  --> por si só ele faz a iteração pelo elementos do array
+         <li>{{.}}</li> ---> quero mostrar os proprios elementos do array, maneria de exibir dados de um array simples
+      {{/list}}    
+
+
+
+      {{^list}} ----> maneira de fazer um else, caso o array esteja vazio
+        Não há frases motivacionais hoje
+      {{/list}}
+
+
+
+
+
+
+
+
+
+
+#--CONTEUDO PARCIAL
+
+conteudo parcial = uma forma de eu reutilizar html para outras paginas
+
+OBSERVAÇÃO = criar uma pasta chamada "partials" dentro do "views", e colocar os arquivos mustache de view dentro de outra pasta chamada "pages" ---> separar responsibiliades
+
+
+EXEMPLO : 
+
+------ > partials/header.mustache
+
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">            ---> como passar esse header para as outras paginas ? 
+    <title>Test Mustache</title>
+</head>
+<body>
+    <h1> Título da página </h1>
+    <hr>
+
+
+
+------> pages/home
+
+{{>partials/header}} ---> chamando o header criando na pasta partials ------------> sintaxe : {{>pasta/arquivo.mustache}}
+
+    {{#user.showWelcome}}
+    <p>Olá Tudo Bem {{user.name}}</p>
+    {{/user.showWelcome}}
+
+
+    {{#user.showOld}}
+      <p>{{user.name}} você  é maior que 18 anos</p>
+    {{/user.showOld}}
+
+    {{^user.showOld}}
+        <p>{{user.name}} você não é maior que 18 anos</p>
+    {{/user.showOld}}
+  
+
+    <hr/>
+    
+    <h2>Produtos</h2>
+    <ul> 
+    {{#products}}
+      {{>partials/productItem}}
+    {{/products}}
     </ul>
  
     <hr>
       {{#list}} <!--Maneira de exibir um array normal-->
-         <li>{{.}}</li>  ---> quero o propio elemento do array
+         <li>{{.}}</li>
       {{/list}}    
 
       {{^list}}  <!--maneira de fazer um else-->
         Não há frases motivacionais hoje
       {{/list}}
+
+
+{{>partials/footer}} ------> chamando o footer criando na pasta parials
+ 
+
+
+
+
+
+ partials/footer  :
+	
+	<hr/>
+	Todos os direitos reservados
+	</body>
+	</html>
+
+
+
+
+
 
 
 

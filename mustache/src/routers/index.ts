@@ -21,7 +21,7 @@ router.get('/',(req:Request,res:Response)=>{
          showOld,
         
     }
-     res.render('home',{
+     res.render('pages/home',{
          user,
          products:[
             {title:'Produto X',price:10},
@@ -37,11 +37,11 @@ router.get('/',(req:Request,res:Response)=>{
 })
 
 router.get('/contato',(req:Request,res:Response)=>{
-    res.render('contato')
+    res.render('pages/contato')
 })
 
 router.get('/sobre',(req:Request,res:Response)=>{
-      res.render('sobre')
+      res.render('pages/sobre')
 })
 
 export default router
