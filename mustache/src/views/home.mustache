@@ -1,22 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Mustache</title>
-</head>
-<body>
-    <h1> Título da página </h1>
-    <hr>
-
+ {{>partials/header}}
     {{#user.showWelcome}}
     <p>Olá Tudo Bem {{user.name}}</p>
     {{/user.showWelcome}}
 
 
     {{#user.showOld}}
-        <p>{{user.name}} você é maior que 18 anos</p>
+      <p>{{user.name}} você  é maior que 18 anos</p>
     {{/user.showOld}}
+
+    {{^user.showOld}}
+        <p>{{user.name}} você não é maior que 18 anos</p>
+    {{/user.showOld}}
+  
+
+    <hr/>
+    
+    <h2>Produtos</h2>
+    <ul> 
+    {{#products}}
+        <li>{{title}} - R$ {{price}}</li>
+    {{/products}}
+    </ul>
+ 
+    <hr>
+      {{#list}} <!--Maneira de exibir um array normal-->
+         <li>{{.}}</li>
+      {{/list}}    
+
+      {{^list}}  <!--maneira de fazer um else-->
+        Não há frases motivacionais hoje
+      {{/list}}
 </body>
 </html>

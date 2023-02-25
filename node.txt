@@ -395,3 +395,50 @@ home.mustache
 {{#show}}
   <p>Olá {{user.name}} você é maior de idade</p>     --> caso o álife seja maior de idade ela mostra uma tag com informações, caso ela não seja, nada é mostrado.
 {{/show}}
+
+
+
+
+
+
+
+
+
+
+
+#--LOOPS
+
+
+
+res.render('home',{
+         user,
+         products:[
+            {title:'Produto X',price:10},
+            {title:'Produto Y',price:15},
+            {title:'Produto W',price:20}
+        ],
+        list:[
+            'Alguma coisa legal',
+            'outra frase' 
+        ]
+        
+     })
+
+
+
+{{#products}}
+   <li>{{title}} - R$ {{price}}</li> ---> maneira de exibir um loop
+{{/products}}
+    </ul>
+ 
+    <hr>
+      {{#list}} <!--Maneira de exibir um array normal-->
+         <li>{{.}}</li>  ---> quero o propio elemento do array
+      {{/list}}    
+
+      {{^list}}  <!--maneira de fazer um else-->
+        Não há frases motivacionais hoje
+      {{/list}}
+
+
+
