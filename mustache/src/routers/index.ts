@@ -44,4 +44,14 @@ router.get('/sobre',(req:Request,res:Response)=>{
       res.render('pages/sobre')
 })
 
+router.get('/nome',(req:Request,res:Response)=>{
+    console.log("query string",req.query)  
+    let nome : string = req.query.nome as string
+    let sobrenome : string = req.query.sobrenome as string
+    res.render('pages/nome',{
+         nome,
+         sobrenome
+    })
+
+})
 export default router
