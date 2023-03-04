@@ -622,3 +622,108 @@ nome.mustache
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+#--PEGANDOS OS DADOS PELA URL 2
+
+
+
+
+
+// Erro: Variable 'x' is used before being assigned. usando o compilador está alertando que você está tentando acessar o valor de uma variável que ainda não foi inicializada com um valor.
+
+
+router.get('/idade',(req:Request,res:Response)=>{
+
+
+    let idade : number = 0  ---> Retirando ERROR
+    let showAge : boolean = false ---> CRIANDO UM CONDICIONAL DE EXIBIÇÃO
+
+
+    if(req.query.ano){  ----->  verificando se houver uma query na requisição chamada "ano"
+        let anoNascimento : number = parseInt(req.query.ano as string)   ---> transformando em inteiro
+        let anoAtual : number = new Date().getFullYear() ----> pegando o ano atual
+        idade = anoAtual - anoNascimento -----> calculando a idade
+        showAge = true ------------> usando a condicional de exibição
+    }
+    
+     res.render('pages/idade',{
+         idade,      ----> mandando a variavel idade  para o mustache
+         showAge	 -----> mandando o condicional de exibiçao para o mustache
+     })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--ENVIANDO DADOS VIA POST
+
+
+POST = enviar os dados internamente, sem apareçar na url
+
+server.use(express.urlencoded({extended:true}))  ------> precisa configurar o servidor para  pegar os dados do corpo da requisição dentro da rota
+
+extend:true --> mostra os dados detalhadamente
+
+
+router.get('/idade',(req:Request,res:Response)=>{        ---> mudo a minha rota para apenas renderizar a pagina
+        res.render('pages/idade')
+})
+
+
+router.post = preciso usar porque estou utilizando a requisição post 
+
+'/idade-resultado'  ---> meu action, para poder criar outra rota com resultado e reutilizar layout
+
+req.body = utilizo o req.body porque estou mandando os dados agora internamento pelo corpo da requisição
+
+router.post('/idade-resultado',(req:Request,res:Response)=>{
+    let idade : number = 0
+    let showAge : boolean = false
+    if(req.body.ano){
+        let anoNascimento : number = parseInt(req.body.ano as string)         ---> agora as manipulaçoes de idade são feitas dentro do post
+        let anoAtual : number = new Date().getFullYear()
+        idade = anoAtual - anoNascimento
+        showAge = true
+    }
+    
+     res.render('pages/idade',{
+         idade,     ---> mandando a idade para o mustache
+         showAge     ---> mandando a condicional de exibição para o mustache
+     })
+})
+
+
+
+
+{{>partials/header}}
+   <form method = 'POST' action = '/idade-resultado'>  --->o formulario vai mandar suas informações internamente pelo corpo da requisição
+     ---> e o será criada outra rota para exibir o resultado 
+
+
+    <input type='number' name='ano' placeholder='digite seu ano de nascimento'/> 
+    <br/><br/> <input type = 'submit' value = 'ENVIAR'/>
+   </form>
+      {{#showAge}}
+            <hr/>
+            Olá sua idade é {{idade}}
+      {{/showAge}}
+{{>partials/footer}}

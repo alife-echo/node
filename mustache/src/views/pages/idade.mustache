@@ -1,0 +1,10 @@
+{{>partials/header}}
+   <form method = 'POST' action = '/idade-resultado'>
+    <input type='number' name='ano' placeholder='digite seu ano de nascimento'/> 
+    <br/><br/> <input type = 'submit' value = 'ENVIAR'/>
+   </form>
+      {{#showAge}}
+            <hr/>
+            Olá sua idade é {{idade}}
+      {{/showAge}}
+{{>partials/footer}}
