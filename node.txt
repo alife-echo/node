@@ -727,3 +727,28 @@ router.post('/idade-resultado',(req:Request,res:Response)=>{
             Olá sua idade é {{idade}}
       {{/showAge}}
 {{>partials/footer}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#----MVC 
+
+
+
+M = Model      ----> pasta que possui a logica e regras de negocio
+V = View       ----> pasta com as visualizações , html,css
+C = controller ----> pasta que direcionam os resultados do processamento para o view,intermediador
+
+

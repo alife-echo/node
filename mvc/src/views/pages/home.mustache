@@ -1,0 +1,33 @@
+{{>partials/header}}
+    {{#user.showWelcome}}
+    <p>Olá Tudo Bem {{user.name}}</p>
+    {{/user.showWelcome}}
+
+
+    {{#user.showOld}}
+      <p>{{user.name}} você  é maior que 18 anos</p>
+    {{/user.showOld}}
+
+    {{^user.showOld}}
+        <p>{{user.name}} você não é maior que 18 anos</p>
+    {{/user.showOld}}
+  
+
+    <hr/>
+    
+    <h2>Produtos</h2>
+    <ul> 
+    {{#products}}
+      {{>partials/productItem}}
+    {{/products}}
+    </ul>
+ 
+    <hr>
+      {{#list}} <!--Maneira de exibir um array normal-->
+         <li>{{.}}</li>
+      {{/list}}    
+
+      {{^list}}  <!--maneira de fazer um else-->
+        Não há frases motivacionais hoje
+      {{/list}}
+{{>partials/footer}}
