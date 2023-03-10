@@ -26,8 +26,16 @@
       {{#list}} <!--Maneira de exibir um array normal-->
          <li>{{.}}</li>
       {{/list}}    
-
+      
       {{^list}}  <!--maneira de fazer um else-->
         Não há frases motivacionais hoje
       {{/list}}
+      {{#upPrice}}
+            <li>{{title}}:{{price}}</li>
+      {{/upPrice}}
+      
+      {{^upPrice}}
+          <strong>não existe produtos acima do especificado<strong>
+      {{/upPrice}}
+     
 {{>partials/footer}}

@@ -747,7 +747,7 @@ router.post('/idade-resultado',(req:Request,res:Response)=>{
 
 
 
-M = Model      ----> pasta que possui a logica e regras de negocio
+M = Model      ----> pasta que faz as manipulaçoes,processamento
 V = View       ----> pasta com as visualizações , html,css
 C = controller ----> pasta que direcionam os resultados do processamento para o view,intermediador
 
