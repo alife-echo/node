@@ -288,6 +288,8 @@ path.join(__dirname,'./public') -->caso o server esteja fora da pasta src, coman
 server.use(express.static(path.join(__dirname,'../public'))) ---> comando que cria uma rota para a pasta publica, mas agora com o camino completo da pasta public, prevensão de erros.
 
 
+server.use(express.static(path.join(__dirname,'../public'))) ---> todas as patas imgs e css são reconhecidos pelo mustache quando estão na pasta public, porque são arquivos estaticos
+
 
 
 
