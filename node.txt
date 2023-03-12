@@ -754,3 +754,47 @@ V = View       ----> pasta com as visualizações , html,css
 C = controller ----> pasta que direcionam os resultados do processamento para o view,intermediador
 
 
+
+
+
+
+
+#----VARIAVEIS DE AMBIENTE    
+
+
+
+
+
+variaveis de ambiente ---> são utilizados quando tenho padrões no meu ambiente de desenvolvimento que podem diferir quando outras pessoas usarem
+
+
+instalação ---> npm install dotenv
+
+
+
+no server.ts
+
+import dotenv from 'dotenv' ---> importando o dotenv
+
+dotenv.config() ---> chamando suas configurações
+
+crio um arquivo chamado .env
+
+
+
+
+EX:
+
+quero parametrizar a porta do servidor, caso esse arquivo for para outro ambiente , a pessoa possa alterar apenas o arquivo .env, e não ficar procurando  o "server.listen" no serve.ts
+
+no .env
+
+PORT=4000  ---> meu padrão de desenvolvimento
+
+
+
+Chamando no server.ts
+
+server.listen(process.env.PORT)    ---> ele vai entrar no arquivo .env e colocar no serve.listen a variavel do .env chamado "PORT"
+
+
