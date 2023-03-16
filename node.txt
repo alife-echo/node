@@ -798,3 +798,50 @@ Chamando no server.ts
 server.listen(process.env.PORT)    ---> ele vai entrar no arquivo .env e colocar no serve.listen a variavel do .env chamado "PORT"
 
 
+
+
+
+
+
+
+#---COLOCANDO O PROJETO NO AR
+
+
+
+1- CRIAR UM ARQUIVO CHAMADO "Procfile",na raiz do projeto,  o servidor vai ler esse arquivo e executar os comandos dentro dele
+
+NO ARQUIVO : 
+
+COLOCAR COMANDO --> web:npm start  ---> o servidor vai executar esse comando para compilar o projeto
+
+
+
+
+2 - CRIAR O COMANDO "START" NO Package.json
+
+
+colocar no objeto "scripts" ---> "start": "node dist/server.js" ---> o servidor vai saber a localização do arquivo para executar
+
+
+o dist ainda não foi criado. ele vai ser rodado com o tsc, porem precisamos instalar uma blibioteca para copiar os arquivos mustache para o dist
+
+
+se eu rodar apenas o tsc, o dist será criado , porem apenas os arquivos mvc,server,helpers vão para ele, menos os arquivos mustache.
+
+
+3 - INSTALAR O COPIADOR DE ARQUIVOS
+
+comando ---->  npm install --save-dev copyfiles
+
+colocoar a execução dele no "scripts" do package.json
+
+"postinstall": "tsc && copyfiles -u 1 src/**/*.mustache dist/" ---> esse comando transformar os arquivos ts em js e coloca no dist, e copia todos os arquivos mustache para o dist tambem. o '-u 1' garante a copia dos arquivos mustache modificados.
+
+
+4- RODAR OS COMANDOS
+
+npm run postinstall 
+
+npm run start
+
+
