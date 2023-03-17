@@ -1,0 +1,19 @@
+#---- ORM
+
+ORM = é uma técnica para aproximar o paradigma de desenvolvimento de aplicações orientadas a objetos ao paradigma do banco de dados relacional
+
+Blibioteca
+
+ORM = Object Relational Mapper
+Mapeamento objeto-relacional
+
+
+Configurar um codigo para um ou varios banco de dados
+
+npm install --save sequelize ---> instalar orm sequelize
+
+npm install --save -dev @types/sequelize ---> instalar os types do orm sequelize
+
+npm install mysql2 ---> instalar o gerenciador de banco de dados mysql
+
+
