@@ -2,7 +2,8 @@ import express,{Request,Response} from 'express'
 import path from 'path'
 import mustache from 'mustache-express'
 import dotenv from 'dotenv'
-import {sequelize} from '../src/instances/mysql'
+//import {sequelize} from '../src/instances/mysql'
+import {sequelize} from '../src/instances/pg'
 const server = express()
 dotenv.config()
 server.set('view engine','mustache')
