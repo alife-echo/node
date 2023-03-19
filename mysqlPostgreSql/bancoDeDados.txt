@@ -80,12 +80,23 @@ server.get('/', async (req:Request,res:Response)=>{  ---> digo que a minha funç
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
 #-- CRIAR UMA CONEXÃO COM O BANCO DE DADOS POSTGRESQL
 
 
 são os mesmos passos do mysql
 
-
+instalar o manipulador do postgres ---> npm install pg pg-hstore
 
 variavies de ambiente
 
@@ -96,7 +107,7 @@ PG_PORT=5432
 
 
 
-criar um arquivo pg.ts
+criar um arquivo pg.ts na pasta instances
 
 import { Sequelize } from "sequelize";
 import dotenv from 'dotenv'
@@ -131,3 +142,98 @@ server.get('/', async (req:Request,res:Response)=>{
 
 
 
+
+
+
+
+
+
+
+#--CONSULTANDO DADOS NO MODEL
+
+extends = herdar caracteristicas,atributos de outra classe.
+
+
+
+model =  Essa classe representa uma tabela no banco de dados e define suas colunas como propriedades da classe. O modelo do Sequelize também define os relacionamentos entre tabelas através de associações.
+
+
+
+DataTypes =   para representar os tipos de dados suportados pelos bancos de dados relacionais, são usados na definição dos modelos do Sequelize para especificar os tipos de dados das colunas nas tabelas do banco de dados.
+
+
+
+
+dentro do model eu crio um arquivo chamado User.ts
+
+
+
+User.ts
+
+
+import {Model,DataTypes} from 'sequelize'          --> preciso importar o model do sequelize e os datatypes
+import {sequelize} from '../instances/mysql'       --> preciso importar minha conexão com o mysql
+
+
+interface UserInstance extends Model{   ---> tipar os dados que vão vir do banco
+    id:number,
+    name:string,
+    age:number
+}
+
+
+##OBSERVAÇÃO ---> os campos e a tableName precisam estar iguais ao do banco de dados, se não, ocorrerar erro.
+
+export const User = sequelize.define<UserInstance>("User",{ ----> define um modelo de usuário (User) usando o Sequelize para interagir com um banco de dados relacional
+    id:{                            ----> O campo da Tabela User, possui um id que é primary key e tambem um inteiro
+        primaryKey:true,
+        type:DataTypes.INTEGER,
+    },
+    nameUser:{			  ------> O campo da tabela User, possui uma nome de usuario que é do tipo string
+        type:DataTypes.STRING
+    },
+    ageUser:{                  ----- > O campo da tabela User, possui uma idade do Usuario que é do tipo inteiro, e se não for informado nada o usuario tem por padrão 18
+        type:DataTypes.INTEGER,
+        defaultValue:18
+    }
+},{
+    tableName:'users',      ---> especifco que o modelo de usuario 'User' faz referencia a tabelar  'users' do banco de dados
+    timestamps:false     ----> Desativa a criação automática das colunas createdAt e updatedAt, que registram a data de criação e modificação de um registro, respectivamente.
+})
+
+
+//createdAt
+//updatedAt
+
+
+
+
+## EXIBINDO TODOS OS USUARIOS DO BANCO
+
+import { User } from './models/User' ---> importando a constante User do model
+
+server.get('/', async (req:Request,res:Response)=>{
+  try {
+    let users = await User.findAll() ---> pegando todos os campos
+    
+    res.render('pages/home',{
+       users    ---> mandando para o mustache
+    })
+  }
+  catch(error){
+    console.log(error)
+  }
+  
+})
+
+
+
+
+
+home.mustache
+
+<ul>
+{{#users}}
+    <li style='list-style-type:none'>{{nameUser}} - Idade:{{ageUser}}</li>
+{{/users}}
+</ul>
