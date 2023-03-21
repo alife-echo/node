@@ -4,7 +4,7 @@ import mustache from 'mustache-express'
 import dotenv from 'dotenv'
 //import {sequelize} from '../src/instances/mysql'
 import { User } from './models/User'
-import { Op } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 const server = express()
 dotenv.config()
 server.set('view engine','mustache')
@@ -20,11 +20,18 @@ server.get('/', async (req:Request,res:Response)=>{
       attributes:{exclude:['id']}, // --> não pegar a coluna,
       //where:{nameUser:'Paulo',ageUser:55} // --> condicional quero apenas a linha com o nome usuario Paulo e que tenha 55 anos
       where:{
-        [Op.or]:[
+       /* ageUser:{
+           [Op.between] : [15,55]
+        }*/
+       nameUser:{
+         [Op.endsWith]:['a']
+       }
+
+      /*  [Op.or]:[
             {ageUser:55},
-            {ageUser:30}
-            //{nameUser:'Paulo'}
-        ],
+            {ageUser:15}
+        ],*/
+       
         /*
         ageUser:{ 
           [Op.or]:[30,55]  --> outra forma
@@ -33,7 +40,7 @@ server.get('/', async (req:Request,res:Response)=>{
        
       }
     }) 
-    console.log(users)
+
     res.render('pages/home',{
        users
     })

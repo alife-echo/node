@@ -237,3 +237,60 @@ home.mustache
     <li style='list-style-type:none'>{{nameUser}} - Idade:{{ageUser}}</li>
 {{/users}}
 </ul>
+
+
+
+
+
+
+
+#--TIPOS DE CONSULTA
+
+
+import { User } from './models/User' ---> importar a tabela User do models User
+import { Op } from 'sequelize' ----> importar as operações de busca do sequelize
+
+
+server.get('/',(req:Request,res:Response)=>{
+
+
+let user = await User.findAll() ---> tras todas as linhas e colunas do banco de dados
+
+
+
+let user = awaite User.findAll({
+   attributes:{exclude:['id','ageUser']} ---> busque todas as colunas, mas ignore o id e a ageUser
+ })
+
+
+
+where:{nameUser:'Paulo',ageUser:55} ---> quero apenas a linha que tenha o nameUser 'Paulo' e que a idade ageUser essa operação retorna apenas o que foi especificado
+
+
+where:{nameUser:['Paulo','Chico'],ageUser:[55,30]} ---> caso eu queira especificar mais
+se algum desses dados estiver errado, o retorno sera apenas dos dados que são certos
+
+[Op.or]:[
+  
+  {ageUser:55}, --> caso tenha a idade 55 ou 30 , retorne  a linha delas
+  {ageUser:30}
+
+]
+
+
+  where:{
+    ageUser:{  
+    [Op.between] : [15,55] ---> retorne as linhas que tem as idades entre 15 e 55
+}
+
+
+ nameUser:{
+         [Op.endsWith]:['a'] ---> retorne as linhas que o nome do usuario termine com 'a'
+     }
+
+})
+
+
+
+
+
