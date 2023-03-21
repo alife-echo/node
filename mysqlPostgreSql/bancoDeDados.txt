@@ -184,7 +184,7 @@ interface UserInstance extends Model{   ---> tipar os dados que vão vir do banc
 
 ##OBSERVAÇÃO ---> os campos e a tableName precisam estar iguais ao do banco de dados, se não, ocorrerar erro.
 
-export const User = sequelize.define<UserInstance>("User",{ ----> define um modelo de usuário (User) usando o Sequelize para interagir com um banco de dados relacional
+export const User = sequelize.define<UserInstance>("User",{ ----> define um modelo de usuário (User) usando o Sequelize para interagir com um banco de dados relacional, é tipando os dados
     id:{                            ----> O campo da Tabela User, possui um id que é primary key e tambem um inteiro
         primaryKey:true,
         type:DataTypes.INTEGER,
