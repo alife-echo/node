@@ -14,6 +14,7 @@ server.use(express.static(path.join(__dirname,'../public')))
 server.use(express.urlencoded({extended:true}))
 
 server.get('/', async (req:Request,res:Response)=>{
+  let searchName:string = 'pa'
   try {
     let users = await User.findAll({
       // attributes:['nameUser','ageUser'],--> pegar colunas especificas
@@ -23,10 +24,10 @@ server.get('/', async (req:Request,res:Response)=>{
        /* ageUser:{
            [Op.between] : [15,55]
         }*/
-       nameUser:{
+      /* nameUser:{
          [Op.endsWith]:['a']
-       }
-
+       },*/
+      
       /*  [Op.or]:[
             {ageUser:55},
             {ageUser:15}
@@ -37,7 +38,9 @@ server.get('/', async (req:Request,res:Response)=>{
           [Op.or]:[30,55]  --> outra forma
         }
         */
-       
+        nameUser:{
+          [Op.like]:`%${searchName}%`
+        }
       }
     }) 
 

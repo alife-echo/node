@@ -277,6 +277,11 @@ se algum desses dados estiver errado, o retorno sera apenas dos dados que são c
 
 ]
 
+  ageUser:{
+        [Op.or]:[55,15] ---> outra maneira de fazer, retorna as linha em que a idade do usuario e 55 ou 15
+      }
+
+
 
   where:{
     ageUser:{  
@@ -291,6 +296,114 @@ se algum desses dados estiver errado, o retorno sera apenas dos dados que são c
 })
 
 
+
+
+
+
+
+#---TIPOS DE CONSULTA 2
+
+where:{
+ ageUser:{
+        [Op.gt]:40, // > 40 quero os usuarios maiores que 40 anos.  
+        [Op.gte]40, // >= 40  quero usuario com a idade maior ou igual a 40
+        [Op.lt]:40, // < 40 quero os usuarios com a idade menor que 40 anos
+        [Op.lte], // <= 40  quero os usuarios com a idade menor ou igual a 40 anos
+       }
+}
+
+
+
+
+POSSO COMBINAR OPERADORES 
+
+where:{
+
+	ageUser:{
+		[Op.lte]:70,       ---> quero os usuarios que tenha a idade maior igual a 40 e menor igual a 70
+		[Op.gte]:40
+
+	}	
+
+}
+
+
+where:{
+
+	ageUser:{
+		
+	 	[Op.between]:[40,70] ----> outra maneira de fazer
+
+	}	
+
+}
+
+
+where:{
+ ageUser:{
+         [Op.notBetween]:[40,70] ---> quero os usuarios que as idades não estão entre 40 e 70
+       }
+}
+
+
+gt --> greater than
+
+gte --> greater than equal
+
+lt --> lower than
+
+lte --> lower than equal
+
+
+where:{
+ 
+ ageUser:{
+	[Op.in]:[30,55] --> retorna os usuarios que tenham a idade 30 ou 55
+ }
+
+}
+
+
+where:{
+ 
+ ageUser:{
+	[Op.notIn]:[30,55] --> retorna os usuarios que não tenham a idade 30 ou 55
+ }
+
+}
+
+
+
+where:{
+
+   nameUser:{
+	[Op.like]:'%a' ----> retorna os usuarios que terminam com a letra 'a'
+	}
+
+}
+
+
+where:{
+
+   nameUser:{
+	[Op.like]:'a%' ---> retorna os usuarios que começam com a letra 'a'
+	}
+
+}
+
+
+
+
+where:{
+
+   nameUser:{
+	[Op.like]:'%a%'  ---> retorna todos os usuarios que tenha a letra a
+	}
+
+}
+
+
+OBSERVAÇÃO ---> para pegar algo do usuario, crie uma template string
 
 
 
