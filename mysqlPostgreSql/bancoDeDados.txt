@@ -374,6 +374,10 @@ where:{
 
 
 
+
+
+
+
 where:{
 
    nameUser:{
@@ -406,4 +410,29 @@ where:{
 OBSERVAÇÃO ---> para pegar algo do usuario, crie uma template string
 
 
+
+
+
+
+
+#--ORDENANDO RESULTADOS
+
+where:{
+ 
+  condições
+
+},
+order:['nameUser'] ---> ordenar de forma ascendente o nome dos usuario
+
+order:[
+   ['nameUser','DESC']   ---> ordenar de forma decrescente o nome do usuario
+]
+
+
+order:[
+	['ageUser','DESC'] ---> ordenar as idades do usuario de forma decrescente
+]
+
+
+OBSERVAÇÃO --> SÓ PODE TER UM ORDER
 
