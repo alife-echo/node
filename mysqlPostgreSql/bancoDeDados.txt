@@ -436,3 +436,24 @@ order:[
 
 OBSERVAÇÃO --> SÓ PODE TER UM ORDER
 
+
+
+
+
+
+
+#-- LIMITANDO RESULTADOS
+
+
+offset --> pular resultado
+
+limit --> limitar resultado
+
+
+
+let users = await findAll({]
+  offset:1, ---> pula 1 resultado 
+  limit:2  ---> mostra apenas 2 resultados do banco
+})
+
+

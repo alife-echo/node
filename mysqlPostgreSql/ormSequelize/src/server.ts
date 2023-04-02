@@ -20,21 +20,16 @@ server.get('/', async (req:Request,res:Response)=>{
       // attributes:['nameUser','ageUser'],--> pegar colunas especificas
       attributes:{exclude:['id']}, // --> não pegar a coluna,
       //where:{nameUser:'Paulo',ageUser:55} // --> condicional quero apenas a linha com o nome usuario Paulo e que tenha 55 anos
-      where:{
-          ageUser:{
-            [Op.gte]:18
-          }
-      },
+    
+
 
      // order:['nameUser']
     /* order:[
       ['nameUser','DESC']
      ]
       */
-     order:[
-      ['ageUser','ASC'],
-      ['nameUser','DESC']
-     ]
+     offset:1,
+     limit:2
     }) 
 
     res.render('pages/home',{
