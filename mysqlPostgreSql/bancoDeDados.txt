@@ -451,9 +451,37 @@ limit --> limitar resultado
 
 
 
-let users = await findAll({]
+let users = await findAll({
   offset:1, ---> pula 1 resultado 
   limit:2  ---> mostra apenas 2 resultados do banco
 })
 
+
+
+
+
+
+#INSERINDO DADOS COM SEQUELIZE
+
+
+usando o user.build ele cria uma instancia do usuario no node, quando uso o user.save eu mando essa instancia verdadeiramente pro banco
+
+OBSERVAÇÃO --> esse metodo é bom para quando eu for fazer alguma manipualção para depois colocar no usuario para posteriormente mandar para o banco
+
+Exemplo: atraves de um input com o formato dd/mm/ano calcular a idade do usuario e depois mandar para o build, para posteriormente salvar no banco 
+
+const user = User.build({
+       nameUser:'Karine',
+       ageUser:25
+    })
+   
+    await user.save()
+    console.log(user.name)
+
+
+--> usando o metodo create ele cria o usuario instantaneamente
+    const user = await User.create({     
+       nameUser:'Ciclano',
+       ageUser:39
+    })
 

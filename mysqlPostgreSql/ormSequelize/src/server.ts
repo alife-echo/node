@@ -14,31 +14,27 @@ server.use(express.static(path.join(__dirname,'../public')))
 server.use(express.urlencoded({extended:true}))
 
 server.get('/', async (req:Request,res:Response)=>{
-  let searchName:string = 'pa'
-  try {
-    let users = await User.findAll({
-      // attributes:['nameUser','ageUser'],--> pegar colunas especificas
-      attributes:{exclude:['id']}, // --> não pegar a coluna,
-      //where:{nameUser:'Paulo',ageUser:55} // --> condicional quero apenas a linha com o nome usuario Paulo e que tenha 55 anos
-    
 
-
-     // order:['nameUser']
-    /* order:[
-      ['nameUser','DESC']
-     ]
-      */
-     offset:1,
-     limit:2
-    }) 
-
-    res.render('pages/home',{
-       users
+   /* build + save
+    const user = User.build({
+       nameUser:'Karine',
+       ageUser:25
     })
-  }
-  catch(error){
-    console.log(error)
-  }
+   // await user.save()
+    console.log(user.name)
+
+    */
+//crate
+    const user = await User.create({
+       nameUser:'Ciclano',
+       ageUser:39
+    })
+    console.log(user.dataValues.nameUser)
+    res.render('pages/home',{
+      
+    })
+  
+
   
 })
 
