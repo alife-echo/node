@@ -14,9 +14,11 @@ export const Blog = sequelize.define<BlogInstance>('Blog',{
         type:DataTypes.INTEGER
      },
      titleBlog:{
-        type:DataTypes.STRING
+        type:DataTypes.STRING,
+        defaultValue:'Meu Título Padrão'
      },
      bodyBlog:{
-        type:DataTypes.STRING
+        type:DataTypes.STRING,
+        defaultValue:'Meu Corpo de texto Padrão'
      }
 },{tableName:'blog',timestamps:false})

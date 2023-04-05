@@ -473,7 +473,7 @@ Exemplo: atraves de um input com o formato dd/mm/ano calcular a idade do usuario
 const user = User.build({
        nameUser:'Karine',
        ageUser:25
-    })
+    })	
    
     await user.save()
     console.log(user.name)
