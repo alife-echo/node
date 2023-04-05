@@ -5,7 +5,9 @@ export const home = async (req:Request,res:Response)=>{
      try{
         await sequelize.authenticate()
         console.log('Conexão estabelecida com sucesso')
-        res.send('Conexão estabelecida com sucesso no banco')
+        res.render('pages/home',{
+             
+        })
      }
      catch(error){
          console.log(error)

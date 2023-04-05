@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+html{
+    scroll-behavior:smooth;
+    font-size: 62.5%;
+    --gray: #2F3136;
+    --grayBody:#2F3136;
+    --white:#ffffff;
+    --shadowInput:#4863F7;
+    --black:#000000;
+    --titlePost:#8F9296;
+    --bodyPost:#CAC4C6;
+}
+
+body{
+    background-color: var(--gray) ;
+ 
+}
+body .container{
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+.formContainer{
+  margin-top: 2rem;
+  width:35%;
+  background-color: var(--grayBody);
+  box-shadow: 0px 0px 9px -3px rgba(0,0,0);
+  border-radius: 1rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  
+}
+form input{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+form input, form textarea{
+    border-radius: 0.6rem;
+    padding: 1rem;
+    outline: none;
+    border: transparent;
+    transition: all ease 300ms;
+    font-family: 'Inter';
+}
+form input[type='submit']{
+    color: white;
+    font-family: 'Barlow';
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+    font-size: 1.7rem;
+    background-color: var(--black);
+    cursor: pointer;
+}
+form input:focus,form textarea:focus{
+    transition: all ease 300ms;
+    box-shadow: 0px 0px 9px 4px var(--shadowInput);
+}
+form h1{
+    font-size: 3rem;
+    font-family: 'Barlow';
+    font-weight: bold;
+    color: var(--white);
+}
+.form{
+  margin-top: 1.5rem;
+  width:35%;
+  background-color: var(--grayBody);
+  box-shadow: 0px 0px 9px -3px rgba(0,0,0);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.title{
+    font-weight: bold;
+    color: var(--titlePost);
+    font-size: 2.3rem;
+    padding-left: 0;
+}
+.user,.textPost{
+    color: var(--white);
+    font-size: 1.6rem;
+    margin-top: 0.7rem;
+    font-family: 'Inter';
+    font-weight: 400;
+}
+.title,.user.textPost{
+    font-family: 'Inter';
+}
