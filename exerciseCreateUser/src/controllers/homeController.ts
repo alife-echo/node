@@ -26,7 +26,7 @@ export const postSubmit = async (req:Request,res:Response)=>{
        })
      }
      else{
-        console.log('Insira os dados corretamente')
+        console.log('Insira os dados')
      }
        
      
