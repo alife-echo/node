@@ -45,14 +45,12 @@ server.get('/', async (req:Request,res:Response)=>{
   })
  
    let users = await User.findAll({
-
+      where:{id:6}
    })
-   /*
    if(users.length>0){
       let usuario = users[0]
       await usuario.destroy()
    }
-   */
    /*
    if(users.length > 0){
        let usuario = users[0]
