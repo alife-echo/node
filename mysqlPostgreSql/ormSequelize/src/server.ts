@@ -25,6 +25,7 @@ server.get('/', async (req:Request,res:Response)=>{
 
     */
 //crate
+/*
     const user = await User.create({
        nameUser:'Ciclano',
        ageUser:39
@@ -34,7 +35,30 @@ server.get('/', async (req:Request,res:Response)=>{
       
     })
   
+*/
 
+   let users = await User.findAll({
+      where:{
+         id:7
+      }
+   })
+   if(users.length > 0){
+       let usuario = users[0]
+       usuario.ageUser+=1
+       await usuario.save()
+   }
+/*
+   await User.update({nameUser:'Seu Chico',ageUser:25},{
+       where:{
+         id:4
+       }
+   })
+
+*/
+
+   res.render('pages/home',{
+      users
+   })
   
 })
 

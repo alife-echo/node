@@ -464,6 +464,8 @@ let users = await findAll({
 #INSERINDO DADOS COM SEQUELIZE
 
 
+
+
 usando o user.build ele cria uma instancia do usuario no node, quando uso o user.save eu mando essa instancia verdadeiramente pro banco
 
 OBSERVAÇÃO --> esse metodo é bom para quando eu for fazer alguma manipualção para depois colocar no usuario para posteriormente mandar para o banco
@@ -485,3 +487,58 @@ const user = User.build({
        ageUser:39
     })
 
+
+
+
+
+#-- ATUALIZANDO DADOS DO SEQUELIZE  1-MANEIRA
+
+
+update = metodo utilizado para atualizar algo no banco
+update --> recebe dois argumentos
+
+     //dados para atualizar,codição de localização de linha no banco
+await User.update({},{})
+
+await User.update({nameUser:'Bob Richard',ageUser:10},{
+  where:{
+	id:4			---> Muda o nome e atualiza a idade do usuario com id 4
+  }
+})
+
+
+await User.update({ageUser:18},{
+  where:{
+  ageUser:{
+    [Op.lt]:18 ---- > coloca a idade para 18 de todos os usuarios que tenham a idade menor que 18
+ }	 
+}
+})
+
+
+
+
+
+#-- ATUALIZANDO DADOS SEQUELIZE 2-MANEIRA
+
+
+A 2 maneira consiste em usar o findAll e uma condição dentro dele, e depois pegar o indice do objeto retornado da condição , e modifica-lo acessando seus atributos
+
+
+
+let users = await User.findAll({
+      where:{
+         id:7       --> de todos os usuarios, quero retornar apenas o de contenha o id 7
+      }
+   })
+   if(users.length > 0){        ---> se esse usuario existir
+       let usuario = users[0]     ---- > acesse o indice dele
+       usuario.ageUser+=1 	  ----> aumente sua idade
+       await usuario.save()   ----> salve no banco a alteração
+   }
+
+
+
+# OBSERVAÇÃO ---> Só posso modificar, um indice  de todos os objetos do banco 
+
+acesso o indice do array e modifico ele. por isso o let usuario = users[0]
