@@ -1,0 +1,16 @@
+{{>partials/header}}
+ 
+<div class="container">
+        <div class="formContainer">
+            <form method="post" action="/post-update">
+                <h1>ATUALIZE UM POST</h1>
+                <input type="text" placeholder="Insira o número do post" name="idPost">
+                <input type="text" placeholder="Insira titulo de atualização" name="titleUpdatePost">
+                <textarea name="bodyPostUpdate"  cols="15" rows="7" placeholder="Insira texto de atualização"></textarea>
+                <div class="buttons"> 
+                      <input type="submit" value="ATUALIZAR">
+                </div> 
+            </form>
+        </div>
+
+{{>partials/postItem}}

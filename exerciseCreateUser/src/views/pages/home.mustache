@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/style.css">
-    <title>Blog</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Inter&display=swap" rel="stylesheet">
-</head>
-<body>  
-    <div class="container">
+{{>partials/header}}
+ 
+<div class="container">
         <div class="formContainer">
             <form method="post" action="/post-result">
                 <h1>ADICIONE UM POST</h1>
                 <input type="text" placeholder="Insira o titulo" name="titlePost">
                 <textarea name="bodyPost"  cols="15" rows="7" placeholder="Insira um texto"></textarea>
-                <input type="submit" value="ADICIONAR">
+                <div class="buttons"> 
+                    <input type="submit" value="ADICIONAR">
+                    <button><a href="/postUpdate">ATUALIZAR</a></button>
+                    <button><a href="/postDelete">EXCLUIR</a></button>
+                </div> 
             </form>
         </div>
-         
-         {{#posts}}
-        <div class="form">
-            <h1 class="title">{{titleBlog}}</h1>
-            <p class="user">#{{id}}</p>
-            <p class="textPost">{{bodyBlog}}</p>
-        </div>
-        {{/posts}}
-    </div>
-</body>
-</html>
+
+{{>partials/postItem}}
+
+    
+      

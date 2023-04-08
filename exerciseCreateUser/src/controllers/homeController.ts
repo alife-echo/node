@@ -31,3 +31,24 @@ export const postSubmit = async (req:Request,res:Response)=>{
         posts
     })
 }
+
+export const updatePost = async (req:Request,res:Response)=>{
+
+    const posts = await getPosts({});
+
+    res.render('pages/update',{
+        posts
+    })
+
+}
+
+
+export const deletePost = async (req:Request,res:Response)=>{
+
+    const posts = await getPosts({});
+
+    res.render('pages/delete',{
+        posts
+    })
+
+}
