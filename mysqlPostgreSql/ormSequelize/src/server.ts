@@ -36,17 +36,30 @@ server.get('/', async (req:Request,res:Response)=>{
     })
   
 */
-
+  await User.destroy({
+    where:{
+       ageUser:{
+          [Op.lte] : 18
+       }
+    }
+  })
+ 
    let users = await User.findAll({
-      where:{
-         id:7
-      }
+
    })
+   /*
+   if(users.length>0){
+      let usuario = users[0]
+      await usuario.destroy()
+   }
+   */
+   /*
    if(users.length > 0){
        let usuario = users[0]
        usuario.ageUser+=1
        await usuario.save()
    }
+   */
 /*
    await User.update({nameUser:'Seu Chico',ageUser:25},{
        where:{

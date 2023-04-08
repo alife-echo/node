@@ -542,3 +542,31 @@ let users = await User.findAll({
 # OBSERVAÇÃO ---> Só posso modificar, um indice  de todos os objetos do banco 
 
 acesso o indice do array e modifico ele. por isso o let usuario = users[0]
+
+
+
+
+#DELETANDO DADOS COM SEQUELIZE
+
+
+lte = menor igual a
+
+Deletar todos os usuarios que tenham a idade menor ou igual a 18
+
+ await User.destroy({
+    where:{
+       ageUser:{
+          [Op.lte] : 18        ---> DELETANDO VARIAS LINHAS ATRAVES DE UMA CONDIÇÃO
+       }
+    }
+  })
+ 
+
+
+   let users = await User.findAll({
+      where:{id:6}                 ----> Acessando um usuario  atraves de uma codição
+   })
+   if(users.length>0){ se esse usuario existir
+      let usuario = users[0] acessa o indice dele
+      await usuario.destroy() e deleta esse usuario
+   }
