@@ -26,16 +26,36 @@ export const Blog = sequelize.define<BlogInstance>('Blog',{
 
 export const createPost =  async (titlePost:string,bodyPost:string) =>{
     if(titlePost !== '' && bodyPost !== ''){
-       const blog =  await Blog.create({
-           titleBlog:titlePost,
-           bodyBlog:bodyPost
-        })
-        return blog
+      let posts = await Blog.findAll({
+        where:{
+          titleBlog:{
+            [Op.in]:[titlePost]
+          },
+          bodyBlog:{
+            [Op.in]:[bodyPost]
+          }
+        }
+    })
+    if(posts.length === 0){
+      const blog =  await Blog.create({
+        titleBlog:titlePost,
+        bodyBlog:bodyPost
+      })
+      return blog
+    }
+    else{
+      console.log('Dados Duplicados')
+    }
+     
+  
+       
     }
     else{
       console.log('Insira os dados')
     }
 }
+
+
 
 export const getPosts = async (where: object) => {
    return await Blog.findAll({
@@ -50,3 +70,4 @@ export const getPosts = async (where: object) => {
      },
    });
  }
+
