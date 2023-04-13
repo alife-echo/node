@@ -84,3 +84,17 @@ export const getPosts = async (where: object) => {
   }
     
  }
+
+
+ export const deletePostInfo = async (id:number) =>{
+    if(isNaN(id)){
+      console.log('Insira um número')
+    }
+    else {
+      await Blog.destroy({
+         where:{
+           id:id
+         }
+      })
+    }
+ }

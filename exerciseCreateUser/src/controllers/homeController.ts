@@ -1,7 +1,7 @@
 import express,{Request,Response} from 'express'
 import {sequelize} from '../instances/mysql'
 import { Op } from 'sequelize'
-import {Blog,createPost,getPosts,updateInfo} from '../models/Blog'
+import {Blog,createPost,getPosts,updateInfo,deletePostInfo} from '../models/Blog'
 export const home = async (req:Request,res:Response)=>{
 
      try{
@@ -55,13 +55,20 @@ export const updatePost = async (req:Request,res:Response)=>{
 
 }
 
-
-export const deletePost = async (req:Request,res:Response)=>{
-
+export const deletePage = async(req:Request,res:Response) =>{
     const posts = await getPosts({});
 
     res.render('pages/delete',{
         posts
     })
+}
+export const deletePost = async (req:Request,res:Response)=>{
+    let id : number = parseInt(req.body.idDeletePost as string)
+    
 
+    const posts = await getPosts({});
+    deletePostInfo(id)
+    res.render('pages/delete',{
+        posts
+    })
 }

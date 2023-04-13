@@ -9,5 +9,6 @@ router.post('/post-result',HomeController.postSubmit)
 router.get('/postUpdate',HomeController.update)
 router.post('/post-update',HomeController.updatePost)
 
-router.get('/postDelete',HomeController.deletePost)
+router.get('/postDelete',HomeController.deletePage)
+router.post('/post-delete',HomeController.deletePost)
 export default router
