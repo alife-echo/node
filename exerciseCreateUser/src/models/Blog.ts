@@ -71,3 +71,16 @@ export const getPosts = async (where: object) => {
    });
  }
 
+ export const updateInfo = async (id:number,title:string,body:string)=>{
+  if(isNaN(id)){
+     console.log('Insira um número')
+  }
+  else{
+    await Blog.update({titleBlog:title,bodyBlog:body},{
+      where:{ 
+         id:id
+      }
+   })
+  }
+    
+ }
