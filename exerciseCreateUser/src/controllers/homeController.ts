@@ -1,7 +1,7 @@
 import express,{Request,Response} from 'express'
 import {sequelize} from '../instances/mysql'
-import { Op } from 'sequelize'
-import {Blog,createPost,getPosts,updateInfo,deletePostInfo} from '../models/Blog'
+
+import {createPost,getPosts,updateInfo,deletePostInfo} from '../models/Blog'
 export const home = async (req:Request,res:Response)=>{
 
      try{

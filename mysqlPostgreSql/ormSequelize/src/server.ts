@@ -36,6 +36,7 @@ server.get('/', async (req:Request,res:Response)=>{
     })
   
 */
+/*
   await User.destroy({
     where:{
        ageUser:{
@@ -51,6 +52,7 @@ server.get('/', async (req:Request,res:Response)=>{
       let usuario = users[0]
       await usuario.destroy()
    }
+   */
    /*
    if(users.length > 0){
        let usuario = users[0]
@@ -66,7 +68,32 @@ server.get('/', async (req:Request,res:Response)=>{
    })
 
 */
+/*
+let users = await User.findOne({ // busca a primeira ocorrencia
+    where:{
+       ageUser:{
+          [Op.gt]:18
+       }
+    }
+})
+*/
+// let users = await User.findByPk(7) busca pelo id
+const [users,created] = await User.findOrCreate({
+    where:{
+       nameUser:'Bia'
+    },
+    defaults:{
+        nameUser:'Bia',
+        ageUser:27
+    }
+})
 
+if(created){
+   console.log('Usuario criado com sucesso')
+}
+else{
+   console.log('Usuario encontrado')
+}
    res.render('pages/home',{
       users
    })

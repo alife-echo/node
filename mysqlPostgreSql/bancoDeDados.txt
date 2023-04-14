@@ -570,3 +570,67 @@ Deletar todos os usuarios que tenham a idade menor ou igual a 18
       let usuario = users[0] acessa o indice dele
       await usuario.destroy() e deleta esse usuario
    }
+
+
+
+
+
+
+
+
+# MÉTODOS FINDER
+
+
+
+findOne({})
+
+
+// procura apenas a primeira ocorrencia de um elemento
+
+let users = await User.findOne({ // busca a primeira ocorrencia
+    where:{
+       ageUser:{
+          [Op.gt]:18  ---> vai retornar o primeiro usuario que tenha a idade maior  que  18
+       }
+    }
+})
+
+
+
+
+findByPk() ---> faz a busca de um usuario pelo id
+
+let users = await User.findByPk(7) --> busca o usuario com id 7
+
+
+
+
+
+
+
+findOrCreate({}) --> procura o usuario se existir ele retorna, mas se não existir, ele cria o usuario no banco
+
+
+
+users == vai armazenar o usuario
+created == vai armazenar um valor booleano se o usuario foi criado ou não
+
+
+const [users,created] = await User.findOrCreate({
+    where:{
+       nameUser:'Bia'    --> procure o usuario com nome 'Bia'
+    },
+    defaults:{
+        nameUser:'Bia', ---> se não achar por padrão crie um usuario chamado Bia com idade de 27 anos
+        ageUser:27
+    }
+})
+
+if(created){
+   console.log('Usuario criado com sucesso') ---> caso seja true o usuario foi criado com sucesso
+}
+else{
+   console.log('Usuario encontrado') --> caso seja false, o usuario já existe no banco
+}
+
+
