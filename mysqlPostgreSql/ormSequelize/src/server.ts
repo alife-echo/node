@@ -78,6 +78,7 @@ let users = await User.findOne({ // busca a primeira ocorrencia
 })
 */
 // let users = await User.findByPk(7) busca pelo id
+/*
 const [users,created] = await User.findOrCreate({
     where:{
        nameUser:'Bia'
@@ -93,7 +94,17 @@ if(created){
 }
 else{
    console.log('Usuario encontrado')
-}
+}*/
+await User.findOrCreate(
+   {where:{
+       nameUser:'Richard'
+   },
+   defaults:{
+       ageUser:13
+   }
+ }
+   )
+let users = await User.findAll({})
    res.render('pages/home',{
       users
    })

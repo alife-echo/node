@@ -634,3 +634,49 @@ else{
 }
 
 
+
+
+
+
+#-- MÉTODOS GETTER/SETTER
+
+
+GETTER ---> pegar dados do banco de dados para fazer uma manipulação de exibição, ele é usuado quando essa manipulçao de exibição e global para aquela coluna, quando for pegar algo no banco esse Geteer sempre sera disparada, manipulando apenas a exibição e não dados do banco
+
+
+
+SETTER --> colocar dados no banco , manipulação de configuração, ele é usando quando vou inserir algo no banco e colocar uma configuração padrão, quando eu inserir algo no banco, ele  vai modificar algo no banco
+
+
+
+export const User = sequelize.define<UserInstance>("User",{
+    id:{
+        primaryKey:true,
+        autoIncrement:true,
+        type:DataTypes.INTEGER,
+    },
+    nameUser:{
+        type:DataTypes.STRING,
+        get(){ ----> sempre quando eu pegar os nomes no banco, quero retornar esses nomes para exibição de forma maiuscular
+            const raw:string = this.getDataValue('nameUser') ---> pega o nome de usuario deste proprio dado
+            return raw.toUpperCase() ---> retorna em maiusculo
+        }
+    },
+    ageUser:{
+        type:DataTypes.INTEGER,
+        defaultValue:18,
+        set(value:number){ ---> vou colocar um valor na idade
+            if(value < 18){ ---> se o valor da idado for menor que 18
+                 value = 18 ---> troca o valor fornecido por 18
+            }
+             this.setDataValue('ageUser',value) coloca esse valor quando um usuario for inserido é quando satisfazer a condição
+        }
+    },
+    
+},{
+    tableName:'users',
+    timestamps:false
+})
+
+
+
