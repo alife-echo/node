@@ -1,0 +1,20 @@
+SQL = Banco de dados RELACIONAL ---> Estrutura pré-formada
+
+NoSQL = Banco de dados NÃO RELACIONAL ---> estrutura modelavel ex:arvore de pastas e arquivos, não existe um relacionamento
+entre um dado e outro
+
+ex: 
+usuarios          ---> estrutura moldável
+-- nome
+-- sobrenome
+-- email
+--grupo
+-- programação
+-- eletronicos
+
+
+
+
+
+
+
