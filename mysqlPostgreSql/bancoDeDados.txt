@@ -680,3 +680,58 @@ export const User = sequelize.define<UserInstance>("User",{
 
 
 
+
+
+
+
+# CAMPOS VIRTUAIS 
+
+criar campos fakes,campos que não existem no banco. Com objetivo de manipular dados e  economizar criação de colunas desnecessarias
+
+
+um campo para pegar  a primeira letra do nome
+
+firstLetterOfName:{ ---> esse campo não existe, logo resultara em erro
+      type:DataTypes.VIRTUAL, ---> conserto o erro, especificando que o campo e do tipo virtual
+      get(){ ---> pego dados para manipuação de exibição
+        let name : string = this.getDataValue('nameUser') ---> pego os nomes dos usuarios
+        return name.charAt(0) ---> retorno a primeira letra de todos os nomes
+      }   
+    },
+
+
+{{firstLetterOfName}} --> coloco essa variavel dentro do for do mustache, para exibir as primeiras letras do nomes dos usuarios
+
+
+
+
+---  APLICAÇÃO PRATICA
+
+
+pego o primeiro nome e o ultimo do usuario,armazenando em colunas separadas, preciso criar outra coluna com o nome completo ? --> não
+
+crio um campo virtual para exibir o nome junto com o sobrenome
+
+firstName:{ --> crio a coluna primeiro nome
+ type:DataTypes.STRING,  
+},
+lastName:{
+        type:DataTypes.STRING, --- crio a coluna sobrenome
+    },
+    fullName:{
+         type:DataTypes.VIRTUAL, --> crio um campo virtual chamado nome completo
+         get(){ --> pego os dados do banco para manipulação de exibição
+            return `${this.getDataValue('firstName')} ${this.getDataValue('lastName')}` --> retorno o nome + o sobre nome
+         }
+    },
+
+
+
+
+
+
+
+
+
+
+
