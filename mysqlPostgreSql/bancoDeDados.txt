@@ -202,6 +202,19 @@ export const User = sequelize.define<UserInstance>("User",{ ----> define um mode
 })
 
 
+User.sync() - Isso cria a tabela se ela não existir (e não faz nada se ela já existir)
+User.sync({ force: true }) - Isso cria a tabela, soltando-a primeiro se ela já existia
+User.sync({ alter: true }) - Isso verifica qual é o estado atual da tabela no banco de dados (quais colunas ela tem, quais são seus tipos de dados, etc.) e, em seguida, executa as alterações necessárias na tabela para que ela corresponda ao modelo.
+
+User.sync()
+  .then(() => {
+    console.log('Tabela Usuarios criada com sucesso!');
+  })
+  .catch((error) => {
+    console.error('Erro ao criar tabela Usuarios:', error);
+  });
+
+
 //createdAt
 //updatedAt
 
@@ -486,6 +499,10 @@ const user = User.build({
        nameUser:'Ciclano',
        ageUser:39
     })
+
+
+
+
 
 
 

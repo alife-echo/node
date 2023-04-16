@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 //import {sequelize} from '../src/instances/mysql'
 import { User } from './models/User'
 import { Op, WhereOptions } from 'sequelize'
+import { Product } from './models/Product'
 const server = express()
 dotenv.config()
 server.set('view engine','mustache')
@@ -95,6 +96,10 @@ if(created){
 else{
    console.log('Usuario encontrado')
 }*/
+let users = await Product.create({
+    nameProduct:'Arroz',
+    category:'Comida'
+})
 await User.findOrCreate(
    {where:{
        nameUser:'Richard'
@@ -104,7 +109,7 @@ await User.findOrCreate(
    }
  }
    )
-let users = await User.findAll({})
+//let users = await User.findAll({})
    res.render('pages/home',{
       users
    })
