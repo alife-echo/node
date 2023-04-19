@@ -851,11 +851,48 @@ npm run start
 
 
 
+#-- CRIAÇÃO DE API
+
+--  API 
+
+-- Application Programming Interface
+
+
+API --> INTERMEDIARIO  BUSCA OS DADOS DO BANCO PARA ENTREGAR AO USUARIO
+
+Webservices = Serviços da Web, site sem interface grafica  apenas com texto puro
+
+
+
+- REST ---> UMA TEORIA UM PADRÃO
+-- Representational State Transfer
+-- Transferência de Estado Representacional
+
+
+- RESTful --> SISTEMA QUE USA O PADRÃO REST
+
+__________________________________________
+
+
+REST OBJETIVO --> TRABALHAR COM URL PARA ESPICICAR A API O QUE ESTAMOS FAZENDO
+
+ENDPOINT = URL COMPLETA
+
+GET = REQUISIÇÃO PARA PEGAR DADOS
+
+PUT = REQUISIÇÃO PARA MODIFICAR DADOS
+
+POST = REQUISIÇÃO PARA ADICIONAR UMA INFORMAÇÃO 
+
+DELETAR = REQUISIÇÃO PARA DELETAR UMA INFORMAÇÃO
 
 
 
 
+npm install dotenv express pg  pg-hstore sequelize validator ---> instalar varios pacotes de uma só vez
 
+
+npm install -D @types/express @types/node @types/sequelize @types/validator  --> instalar varios types de uma vez só
 
 
 
