@@ -896,3 +896,29 @@ npm install -D @types/express @types/node @types/sequelize @types/validator  -->
 
 
 
+
+
+
+
+# --- ENTENDENDO CORS
+
+
+
+npm install cors ---> instalar o  cors
+
+npm install --save @types/cor ---> instalar types do cors
+
+
+no server.ts
+
+import cors from 'cors'
+
+origin:'*' --> permitir todas as origens
+
+server.use(cors({    --> vou chamar o cors quando iniciar o servidor
+      origin:'https://resttesttest.com', --> vou permitir que esse link acesse minha api
+      methods:['GET','POST'] --> apenas o metodo get e post
+}))
+
+
+cors == libera o acesso entre as apis
