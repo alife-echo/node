@@ -1,5 +1,6 @@
 import {Model, DataTypes} from 'sequelize'
 import {sequelize} from '../instances/mysql'
+import { Manufacturer } from './Manufacturer';
 
 interface ProductsInstance extends Model{
      id:number,
@@ -12,6 +13,7 @@ export const Product = sequelize.define<ProductsInstance>('Product',{
         autoIncrement:true,
         primaryKey:true,
         type:DataTypes.INTEGER
+        
       },
       nameProduct:{
          allowNull:false,
@@ -32,3 +34,16 @@ sequelize.sync()
   .catch((error) => {
     console.error('Erro ao criar tabela Usuarios:', error);
   });
+
+  Product.belongsTo(Manufacturer,{
+     constraints:true,
+     foreignKey:'idFabricante'
+  })
+  
+  /**
+   * 
+   *  1- 1
+   *  1 - N
+   *  N:N
+   * 
+   */

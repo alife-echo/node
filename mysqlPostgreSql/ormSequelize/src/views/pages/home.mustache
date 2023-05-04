@@ -1,8 +1,11 @@
 
 
 <ul>
-{{#users}}
-
-    <li style='list-style-type:none'>{{nameProduct}} - Idade:{{category}}</li>
-{{/users}}
+{{#products}}
+    <li style='list-style-type:none'>Produto:<strong>{{nameProduct}}</strong> - Categoria:<strong>{{category}}</strong></li>
+{{/products}}
+</br>
+{{#manufactures}}
+    <li style='list-style-type:none'>Fabricante:<strong>{{name}}</strong></li>
+{{/manufactures}}
 </ul>

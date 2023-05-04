@@ -2,10 +2,12 @@ import express,{Request,Response} from 'express'
 import path from 'path'
 import mustache from 'mustache-express'
 import dotenv from 'dotenv'
-//import {sequelize} from '../src/instances/mysql'
+import {sequelize} from '../src/instances/mysql'
 import { User } from './models/User'
 import { Op, WhereOptions } from 'sequelize'
 import { Product } from './models/Product'
+import { Manufacturer } from './models/Manufacturer'
+import database from 'sequelize'
 const server = express()
 dotenv.config()
 server.set('view engine','mustache')
@@ -96,22 +98,21 @@ if(created){
 else{
    console.log('Usuario encontrado')
 }*/
-let users = await Product.create({
-    nameProduct:'Arroz',
-    category:'Comida'
+await sequelize.sync({force:true})
+let createManufacturer = await Manufacturer.findOrCreate({
+    where:{
+       name:'SENINHA'
+    },
+    defaults:{
+      name:'SENINHA',
+    }
 })
-await User.findOrCreate(
-   {where:{
-       nameUser:'Richard'
-   },
-   defaults:{
-       ageUser:13
-   }
- }
-   )
-//let users = await User.findAll({})
+
+let manufactures = await Manufacturer.findAll({})
+let products = await Product.findAll({})
    res.render('pages/home',{
-      users
+      products,
+      manufactures
    })
   
 })

@@ -746,7 +746,125 @@ lastName:{
 
 
 
+#--RELACIONAMENTOS SEQUELIZE
 
+
+
+A associação HasOne representa uma relação de um-para-um (1:1), onde um registro em uma tabela está associado a no máximo um registro em outra tabela. (tem um)
+
+Ex: Por exemplo, um usuário pode ter no máximo um perfil.
+
+
+Diferença:-->com a chave estrangeira sendo definida no modelo de destino ()
+
+A.hasOne(B) --> CHAVE ESTRANGEIRA NO B 
+
+
+
+
+A associação BelongsTo também representa uma relação de um-para-um (1:1), onde um registro em uma tabela está associado a exatamente um registro em outra tabela.(pertence a)
+
+Ex:Por exemplo, um perfil pertence a um usuário.
+
+Diferença : ---> com a chave estrangeira sendo definida no modelo de origem 
+
+
+A.belongsTo(B) ---> Chave estrangeira na tabela A
+
+
+
+A associação HasMany representa uma relação de um-para-muitos (1:N), onde um registro em uma tabela está associado a vários registros em outra tabela.(tem muitos)
+
+Ex:Por exemplo, um usuário pode ter vários posts.
+
+Diferença : --> Chave estrangeira definida no modelo de destino
+
+A.hasMany(B) ---> A tabela B vai receber a chave estrangeira
+
+
+
+
+A associação BelongsToMany representa uma relação de muitos-para-muitos (N:N), onde vários registros em uma tabela estão associados a vários registros em outra tabela, e isso é representado através de uma tabela intermediária (tabela pivô).(pertence a muitos)
+
+
+Ex:Por exemplo, um usuário pode ter muitos papéis e um papel pode estar associado a muitos usuários. Essa associação requer uma tabela intermediária (tabela pivô) para representar a relação entre as tabelas.
+
+
+
+
+
+
+# -- THROUGH (PIVÔ)
+
+No Sequelize, a opção "through" na definição de uma relação Many-to-Many (N:N) permite especificar o nome de uma tabela intermediária existente a ser usada na relação entre dois modelos. A sintaxe geral é:
+
+
+ModelA.belongsToMany(ModelB, { through: 'TableName' });
+ModelB.belongsToMany(ModelA, { through: 'TableName' });
+
+
+onde "TableName" é o nome da tabela intermediária existente a ser usada na relação entre ModelA e ModelB.
+
+A tabela intermediária especificada em "through" deve ter pelo menos duas colunas: a coluna que representa o ID do modelo A e a coluna que representa o ID do modelo B. O nome dessas colunas padrão segue o padrão de nomenclatura "ModelAId" e "ModelBId", mas você pode alterá-las usando as opções "foreignKey" e "otherKey".
+
+
+
+
+
+
+
+### --- Implementação 
+
+Foo.hasOne(Bar)
+Bar.belongsTo(Foo)   ---> Relação 1 para 1 entre A tabela Foo e Bar
+
+
+Options como um segundo parãmetro da chamada de associação
+
+onDelete e onUpdate ---> especificam a ação que deve ser executada em uma tabela quando uma operação de exclusão ou atualização é executada em uma tabela relacionada.
+
+Foo.hasOne(Bar, {
+  onDelete: 'RESTRICT',
+  onUpdate: 'RESTRICT'
+});
+Bar.belongsTo(Foo);
+
+as Opções para o onDelete e onUpdate são :
+
+RESTRICT, CASCADE, NO ACTION, SET DEFAULT and SET NULL.
+
+
+
+
+#on Delete
+
+onDelete: define a ação a ser executada quando uma operação de exclusão é executada na tabela relacionada. O Sequelize suporta as seguintes opções de ação:
+
+
+CASCADE: exclui automaticamente as linhas relacionadas na tabela filha quando uma linha na tabela pai é excluída.
+
+
+SET NULL: define automaticamente o valor da coluna estrangeira como null nas linhas da tabela filha quando uma linha na tabela pai é excluída.
+
+RESTRICT: impede que uma linha na tabela pai seja excluída se existirem linhas relacionadas na tabela filha.
+
+NO ACTION: é uma opção padrão que não faz nada.
+
+
+
+
+
+# --- On Update
+
+onUpdate: define a ação a ser executada quando uma operação de atualização é executada na tabela relacionada. O Sequelize suporta as seguintes opções de ação:
+
+CASCADE: atualiza automaticamente as linhas relacionadas na tabela filha quando uma linha na tabela pai é atualizada.
+
+SET NULL: define automaticamente o valor da coluna estrangeira como null nas linhas da tabela filha quando uma linha na tabela pai é atualizada.
+
+RESTRICT: impede que uma linha na tabela pai seja atualizada se existirem linhas relacionadas na tabela filha.
+
+NO ACTION: é uma opção padrão que não faz nada.
 
 
 
