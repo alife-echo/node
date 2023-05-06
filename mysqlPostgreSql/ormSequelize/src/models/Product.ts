@@ -35,10 +35,11 @@ sequelize.sync()
     console.error('Erro ao criar tabela Usuarios:', error);
   });
 
-  Product.belongsTo(Manufacturer,{
+  Product.hasMany(Manufacturer,{
      constraints:true,
      foreignKey:'idFabricante'
   })
+  Manufacturer.belongsTo(Product)
   
   /**
    * 

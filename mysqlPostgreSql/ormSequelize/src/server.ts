@@ -98,7 +98,7 @@ if(created){
 else{
    console.log('Usuario encontrado')
 }*/
-await sequelize.sync({force:true})
+//await sequelize.sync({force:true})
 let createManufacturer = await Manufacturer.findOrCreate({
     where:{
        name:'SENINHA'
