@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname,'../public')))
 
 app.get('/', async (req:Request,res:Response)=>{
   await sequelize.sync({})
+  /*
   const product =   await Product.create({
              nameProduct:'PS5',
              categoryProduct:'Eletronico'
@@ -28,10 +29,8 @@ app.get('/', async (req:Request,res:Response)=>{
             cnpjManufacturer:'43.447.044/0004-10',
             product_id:1
     })
-
-    res.render('index',{
-          product,
-          manufacturer      
+*/
+    res.render('index',{   
     })
 })
 app.use((req:Request,res:Response)=>{

@@ -35,3 +35,4 @@ export const Manufacturer = sequelize.define<Manufacturer>('Manufacturer',{
 
 
 //Manufacturer.sync().then(()=>console.log('Fabricante  criado com sucesso')).catch(error => console.log(error))
+//A opção field é usada lá para definir o nome da coluna da chave estrangeira

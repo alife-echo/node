@@ -869,8 +869,17 @@ NO ACTION: é uma opção padrão que não faz nada.
 
 
 
-
-
+ ---> esse campo fica em manufacturer, para referencia o produto
+ product_id:{   ---> criar uma campo de chave estrangeira
+        type:DataTypes.INTEGER, --> tipo inteiro
+        allowNull:false, ---> precisa ser inserido
+        unique:true, ---> aquele id e unico não pode ser repetido
+        references:{
+             model:'product', --- > referencia a tabela product
+             key:'id'     ---> referenciado a chave id
+        },
+        field:'product_id' ---> faz um link com a chave estragerira gerada no relacionamento entre manufactuer e product
+     }
 
 
 
