@@ -899,6 +899,10 @@ npm install -D @types/express @types/node @types/sequelize @types/validator  -->
 
 
 
+#--REDIRECIONAR A PAGINA
+
+res.redirect('/') ---> voltar para a pagina inicial
+
 
 # --- ENTENDENDO CORS
 

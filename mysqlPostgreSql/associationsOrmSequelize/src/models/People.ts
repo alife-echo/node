@@ -1,6 +1,7 @@
 import {DataTypes,Model} from 'sequelize'
 import {sequelize} from '../instances/mysql'
-
+import {Employee} from './Employee'
+import { Client } from './Client'
 interface People extends Model {
       id:number,
       name:string
@@ -22,7 +23,7 @@ export const People  = sequelize.define<People>('People ',{
          unique:true,
          references:{
              key:'id',
-             model:'employee'
+             model:Employee
          },
          field:'Funcionario_idFuncionario'
      },
@@ -32,7 +33,7 @@ export const People  = sequelize.define<People>('People ',{
         unique:true,
         references:{
             key:'id',
-            model:'client'
+            model:Client
         },
         field:'Client_idClient'
     }

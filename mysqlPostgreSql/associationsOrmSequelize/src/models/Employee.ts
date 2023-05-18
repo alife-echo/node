@@ -9,7 +9,7 @@ interface Employee extends Model {
       wage:number
 }
 
-const Employee = sequelize.define<Employee>('Employee',{
+export const Employee = sequelize.define<Employee>('Employee',{
      id:{
         primaryKey:true,
         autoIncrement:true,
