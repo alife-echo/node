@@ -1,6 +1,7 @@
 import {DataTypes,Model} from 'sequelize'
 import {sequelize} from '../instances/mysql'
 import { People } from './People'
+
 interface Client extends Model {
       id:number,
       name:string
@@ -22,5 +23,4 @@ export const Client  = sequelize.define<Client>('Client ',{
      }
 },{tableName:'client',timestamps:false})
 
-Client.hasOne(People,{foreignKey:'Client_idClient'})
-People.belongsTo(Client,{foreignKey:'Client_idClient'})
+

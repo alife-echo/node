@@ -1,5 +1,6 @@
 import { Model,DataTypes } from "sequelize";
 import {sequelize} from '../instances/mysql'
+
 interface Agency extends Model{
     id:number,
     numberAgency:number,
@@ -20,5 +21,5 @@ export const Agency = sequelize.define<Agency>('Agency',{
         type:DataTypes.STRING,
         allowNull:false
     }
-})
+},{tableName:'Agency',timestamps:false})
 
