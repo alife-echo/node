@@ -39,3 +39,22 @@ export const getPhrase = async (req:Request,res:Response) =>{
     }
     
 }
+
+export const updatePhrase =async (req:Request,res:Response) => {
+    let {id} = req.params
+    let phrase = await Phrase.findByPk(id)
+    let {txtUpdate,authorUpdate} = req.body
+    if(phrase){
+             await Phrase.update({txt:txtUpdate,author:authorUpdate},{
+            where:{
+               id
+            }
+       })
+       await phrase.save()
+       res.json({phrase})
+    }
+    else {
+        res.json({error:'frase ou autor não existe'})
+    }
+ 
+}

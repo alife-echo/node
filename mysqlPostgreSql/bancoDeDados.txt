@@ -915,6 +915,16 @@ Actor.belongsToMany(Movie, { through: ActorMovies });
 
 
 
+# PLANEJAMENTO CRIAÇÃO DE FRASES
+
+CRUD para frases
+
+POST /frases - Criar frases
+GET /frases - Listar todas as frases
+GET /frase/123 - pegar uma frase em especifico
+PUT /frase/123 - atualizar informações de uma frase
+DELETE /frase/123 - Deletar uma frase
+
 
 
 # -- CRIANDO FRASE
@@ -928,4 +938,60 @@ Estas requisição foi bem sucedida. O significado do sucesso varia de acordo co
 201 Created
 A requisição foi bem sucedida e um novo recurso foi criado como resultado. Esta é uma tipica resposta enviada após uma requisição POST.
 
+
+export const createPhrase = async (req:Request,res:Response)=>{
+    let {author,txt} = req.body
+    let newPharase =    await Phrase.create({author,txt})
+    res.status(201)
+    res.json({id:newPharase.id, author,txt})
+    //res.json({body:req.body})
+}
+
+
+# -- PEGANDO UMA LISTA DE FRASES
+
+export const getPhrases = async (req:Request,res:Response) =>{
+    let list = await Phrase.findAll()
+    res.json({list})
+}
+
+
+# -- PEGANDO UMA FRASE EM ESPECIFICO
+
+export const getPhrase = async (req:Request,res:Response) =>{
+    let {id}  = req.params
+    let phrase = await Phrase.findByPk(id)
+    if(phrase){
+        res.json({phrase})
+    }
+    else{
+        res.json({error:'Frase não encontrada'})
+    }
+    
+}
+
+
+
+# -- ATUALIZANDO UMA FRASE EM ESPECIFICO
+
+
+
+export const updatePhrase =async (req:Request,res:Response) => {
+    let {id} = req.params
+    let phrase = await Phrase.findByPk(id)
+    let {txtUpdate,authorUpdate} = req.body
+    if(phrase){
+             await Phrase.update({txt:txtUpdate,author:authorUpdate},{
+            where:{
+               id
+            }
+       })
+       await phrase.save()
+       res.json({phrase})
+    }
+    else {
+        res.json({error:'frase ou autor não existe'})
+    }
+ 
+}
 
