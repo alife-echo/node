@@ -914,3 +914,18 @@ Movie.belongsToMany(Actor, { through: ActorMovies });
 Actor.belongsToMany(Movie, { through: ActorMovies });
 
 
+
+
+
+# -- CRIANDO FRASE
+
+
+res.json({body:req.body}) ---> mostra o corpo da requisição , quando uma requisição POST e disparada
+
+200 OK
+Estas requisição foi bem sucedida. O significado do sucesso varia de acordo com o método HTTP:
+
+201 Created
+A requisição foi bem sucedida e um novo recurso foi criado como resultado. Esta é uma tipica resposta enviada após uma requisição POST.
+
+

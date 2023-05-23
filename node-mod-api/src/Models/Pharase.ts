@@ -22,3 +22,9 @@ export const Phrase = sequelize.define<PhraseTypeInstance>('Phrase',{
         type:DataTypes.STRING
     }
 },{tableName:'phrases',timestamps:false})
+
+Phrase.sync().then(()=> {
+     console.log('Tabela Frase criada com sucesso')
+}).catch((error)=>{
+     console.log('Erro ao criar tabela',error)
+})

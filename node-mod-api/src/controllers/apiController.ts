@@ -15,3 +15,27 @@ export const  name =  (req:Request,res:Response)=>{
     let nome : string = req.params.name
     res.json({nome})
 }
+
+export const createPhrase = async (req:Request,res:Response)=>{
+    let {author,txt} = req.body
+    let newPharase =    await Phrase.create({author,txt})
+    res.status(201)
+    res.json({id:newPharase.id, author,txt})
+    //res.json({body:req.body})
+}
+
+export const getPhrases = async (req:Request,res:Response) =>{
+    let list = await Phrase.findAll()
+    res.json({list})
+}
+export const getPhrase = async (req:Request,res:Response) =>{
+    let {id}  = req.params
+    let phrase = await Phrase.findByPk(id)
+    if(phrase){
+        res.json({phrase})
+    }
+    else{
+        res.json({error:'Frase não encontrada'})
+    }
+    
+}
