@@ -995,3 +995,34 @@ export const updatePhrase =async (req:Request,res:Response) => {
  
 }
 
+
+
+# -- DELETANDO UMA FRASE EM ESPECIFICO
+
+
+export const deletePhrase = async (req:Request,res:Response) => {
+     let {id} = req.params
+     let deletePhrase = await Phrase.destroy({where:{id:id}})
+     res.json({})
+}
+
+
+
+
+# -- BUSCANDO UMA FRASE ALEATORIAMENTE
+
+
+export const randomPhrase = async (req:Request,res:Response) => {
+ let phrase = await Phrase.findOne({ //--> procura apenas um dado pra mim
+    order:[ // --> a ordenação para busca será
+        Sequelize.fn('RAND') // --> aleatoriamente
+    ]
+ })
+ if(phrase){
+    res.json({phrase})
+ }
+ else{
+    res.json({error:'Não a frases cadastradas'})
+ }
+ 
+}

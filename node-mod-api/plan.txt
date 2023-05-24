@@ -5,3 +5,5 @@ GET /frases - Listar todas as frases
 GET /frase/123 - pegar uma frase em especifico
 PUT /frase/123 - atualizar informações de uma frase
 DELETE /frase/123 - Deletar uma frase
+
+GET /frase/aleatoria - Pega uma frase aleatoriamente

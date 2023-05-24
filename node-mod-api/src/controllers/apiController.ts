@@ -1,5 +1,5 @@
 import {Request,Response} from 'express'
-
+import { Sequelize } from 'sequelize'
 import { Phrase } from '../Models/Pharase'
 
 export const  ping = (req:Request,res:Response) =>{
@@ -56,5 +56,26 @@ export const updatePhrase =async (req:Request,res:Response) => {
     else {
         res.json({error:'frase ou autor não existe'})
     }
+ 
+}
+
+export const deletePhrase = async (req:Request,res:Response) => {
+     let {id} = req.params
+     let deletePhrase = await Phrase.destroy({where:{id:id}})
+     res.json({})
+}
+
+export const randomPhrase = async (req:Request,res:Response) => {
+ let phrase = await Phrase.findOne({ //--> procura apenas um dado pra mim
+    order:[ // --> a ordenação para busca será
+        Sequelize.fn('RAND') // --> aleatoriamente
+    ]
+ })
+ if(phrase){
+    res.json({phrase})
+ }
+ else{
+    res.json({error:'Não a frases cadastradas'})
+ }
  
 }
