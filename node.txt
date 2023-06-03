@@ -926,3 +926,67 @@ server.use(cors({    --> vou chamar o cors quando iniciar o servidor
 
 
 cors == libera o acesso entre as apis
+
+
+
+
+# -- UPLOAD DE IMAGES
+
+REGRAS:
+
+Em postman
+Geralmente enviado pelo metodo POST
+Não utilizando o x-www-form-urlencoded mas sim o form-data
+
+
+# -- BLIBLIOTECAS DE UPLOAD
+
+
+npm install multer --> instalando multer
+
+npm install --save @types/multer ---> instalando types do multer
+
+
+# -- ENVIANDO UMA IMAGEM COM MULTER
+
+import multer from "multer" ---> importação do multer
+
+const upload = multer({dest:'./tmp'}) ---> configurando para onde vai o arquivo, antes de manda-lo para o public vamos fazer modificações nele , por isso enviamos para uma pasta temporaria(tmp)
+
+router.post('/upload', upload.single('avatar'),uploadController.uploadFile) ---> pegando o campo do formulario que tera o nome de avatar, e mandando para o controllers
+
+no controller
+
+export const uploadFile = async (req:Request,res:Response)=>{
+    console.log(req.file)  --> mostrar as informações do arquivo quando a requisição for efetuada
+    res.json({}) --> responder apenas um objeto (para teste)
+}
+
+
+enviando 2 arquivos
+
+router.post('/upload', upload.array('avatars',2),uploadController.uploadFile) --> mudo o nome para avatars no plural e  especifico que quero apenas 2 arquivos pode ser 1 ou 2
+
+console.log(req.files) --> 'files' --> para mostrar mais de um arquivo
+
+
+enviando mais de um arquivo
+
+router.post('/upload', upload.fields([
+     {name:'avatar',maxCount:1}, --> especificando o campo e quantidade maxima de arquivos
+     {name:'gallery',maxCount:3} --> especificando o campo e quantidade maxima de arquivos
+]),uploadController.uploadFile)
+
+
+export const uploadFile = async (req:Request,res:Response)=>{
+   
+ const files  = req.files as {[fieldname:string]:Express.Multer.File[]} --> informando ao ts que vou colococar qualquer nome para propriedade do objetos files, e que essa variavel e do tipo que array que contem varios objetos do tipo multer file
+
+    console.log('AVATAR',files.avatar) --> mostrando as informações do avatar
+    console.log('GALLERY',files.gallery) --> mostrando as informações da galeria
+
+    res.json({})
+}
+
+
+
