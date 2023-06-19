@@ -990,3 +990,36 @@ export const uploadFile = async (req:Request,res:Response)=>{
 
 
 
+
+# -- Autenticação Email
+
+Autenticação = identeificar quem esta tentando acessar o sistema
+
+Autorização = verificar se o OBJETO ou requisitor pode acessar aquela área do sistema
+
+
+- Single-factor Authenticaion = Autenticação de 1 fator. baseado em autenticação de usuario e senha
+
+
+- Two-factor Authentication(2FA) = Autenticação em 2 fatores , baseado em autenticação de usuario e senha , porem , mais algum outro fator que comprove que é você
+
+- Multi-factor Authentication (MFA) = Autenticação em múltiplos fatores
+
+- Single Sign-On (SSO) = Autenticação única "universal", autenticão baseada em sistemas que compartilham mesma empresa.  Ex: se eu logar no google , automaticamente ja estarei logado no youtube
+
+
+
+# -- Tipos Auth
+
+token = hash de codigo que identifica um usuario que quer fazer uma requisição, o token é temporario
+
+RefreshToken = sempre me será gerado um token, quando expirar o anterior
+
+- Basic Auth - BASE64  = A cada requisição sempre será enviado o usuario e senha em base64
+
+- OAuth (1 e 2) 
+   OAuth1 = Usar um terceiro para gerar um token.  Ex: Login com Facebook
+   OAuth2 = OAuth1 +  RefreshToken
+   JWT(Json Web Token) = Feito pelo servidor, o server gera o token e manda para o usuario, token serve para identificar um acesso, que é lido pelo servidor, o token sempre será enviado no cabeçalho da requisição
+ 
+
