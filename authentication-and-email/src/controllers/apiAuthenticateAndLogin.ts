@@ -15,6 +15,7 @@ export const register = async (req:Request,res:Response)=>{
         else{
             res.json({error:'E-mail já existe'})
         }
+        return
      }
      res.json({error:'E-mail e/ou senha não enviados'})
 }

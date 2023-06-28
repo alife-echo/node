@@ -1015,7 +1015,7 @@ token = hash de codigo que identifica um usuario que quer fazer uma requisição
 
 RefreshToken = sempre me será gerado um token, quando expirar o anterior
 
-- Basic Auth - BASE64  = A cada requisição sempre será enviado o usuario e senha em base64
+- Basic Auth - BASE64  = A cada requisição sempre será enviado o usuario no cabeçalho da requisição e senha em base64
 
 - OAuth (1 e 2) 
    OAuth1 = Usar um terceiro para gerar um token.  Ex: Login com Facebook
