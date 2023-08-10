@@ -988,6 +988,24 @@ export const uploadFile = async (req:Request,res:Response)=>{
     res.json({})
 }
 
+# -- TIPOS DE STORAGE
+
+const storageConfig = multer.diskStorage({ // diskStorage = vou armazenar no disco de armazenamento da maquina
+      destination:(req:Request,file:Express.Multer.File,cb)=>{ // responsavel para destino de armazenamento do arquivo
+               cb(null,'./tmp') // --> destino para .tmp
+      }, 
+      filename:(req:Request,file:Express.Multer.File,cb)=>{ //--> responsavel pelo nome do arquivo
+          let randomName = Math.floor(Math.random() * 99999) // --> gera um numero aleatorio
+          cb(null,`${randomName + Date.now()}.jpg`) --> o nome do arquivo vai ser um numero aleatorio mais a data atual em timesstap mais uma extesnao jpg
+      }
+})
+
+const upload = multer({
+     storage:storageConfig --> especificando que meu multer vai receber as configurações do storageConfig
+    })
+
+router.post('/upload',upload.single('avatar'),uploadController.uploadFile) --> rota que vai utilizar as configurações
+
 
 
 
