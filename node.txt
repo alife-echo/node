@@ -1062,7 +1062,7 @@ const errorHandler : ErrorRequestHandler = (err:Error,req:Request,res:Response,n
 	  err.stack -> erro gigante que especifica as localizações da imagem no dispositivos e dependencias
 	*/
     }else{ --> caso não seja 
-        console.log(err)  --> mostre o erro para o dev
+        console.log(err)  --> mostre o erro para o cliente
         res.json({error:'Ocorreu algum erro'}) --> e mostre o error pelo json
     }
 
@@ -1074,6 +1074,29 @@ server.use(errorHandler) --> coloque no servidor nossa função
 
 
 
+
+
+
+
+# -- REDIMESIONAMENTO DE IMAGES
+
+npm install sharp --> instalação sharp
+
+npm install -D @types/sharp --> instalção types sharp
+
+if(req.file){
+        await sharp(req.file.path).resize(300,300,{ -> pego o caminho do arquivo, redimesiono a imagem de 300 de largura e 300 de altura
+             fit:sharp.fit.cover, -> quero que seja cover(cobertura) centralizado por padrão
+             position:'bottom' --> quero sua posição bottom em baixo
+        }).toFormat('jpeg').toFile(`./public/media/${req.file.filename}.jpg`) --> quero em formato jpeg para a localização media da pasta public, com nome do arquivo e extensão jpg
+        res.json({image:`${req.file.filename}.jpg`}) --> se ocorreu tudo certo mostra o arquivo para o dev
+    }else{
+        res.status(400).json({error:'Arquivo inválido'})
+    }
+
+
+tipos de sharp fit --> fill,cover,contain,outside,inside
+tipos position: 'bottom' ,'left','right','center','top' --> permite ate a combinação dessas posições
 
 
 
