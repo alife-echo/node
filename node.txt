@@ -1007,6 +1007,22 @@ const upload = multer({
 router.post('/upload',upload.single('avatar'),uploadController.uploadFile) --> rota que vai utilizar as configurações
 
 
+# -- VALINDANDO ARQUIVOS
+
+
+const upload = multer({
+     dest:'./tmp',
+     fileFilter:(req,file,cb)=>{
+          cb(null,false) ->  não aceita nada que for enviado
+          cb(null,true)  -> aceita tudo que for enviado
+         const allowed:string[] = ['image/jpg','image/jpeg','image/png']  -> especifico os tipos permitidos de imagem para validação
+         cb(null,allowed.includes(file.mimetype)) -> o arquivo sera liberado caso o arquivo esteja incluso nos tipos definidos
+        },
+        limits:{fieldSize:20000000}  -> especificar o tamanho do aceitavel para do arquivo 20mb
+        
+    })
+
+
 
 
 # -- Autenticação Email
