@@ -930,6 +930,7 @@ cors == libera o acesso entre as apis
 
 
 
+
 # -- UPLOAD DE IMAGES
 
 REGRAS:
@@ -939,12 +940,20 @@ Geralmente enviado pelo metodo POST
 Não utilizando o x-www-form-urlencoded mas sim o form-data
 
 
+
+
+
 # -- BLIBLIOTECAS DE UPLOAD
 
 
 npm install multer --> instalando multer
 
 npm install --save @types/multer ---> instalando types do multer
+
+
+
+
+
 
 
 # -- ENVIANDO UMA IMAGEM COM MULTER
@@ -988,6 +997,9 @@ export const uploadFile = async (req:Request,res:Response)=>{
     res.json({})
 }
 
+
+
+
 # -- TIPOS DE STORAGE
 
 const storageConfig = multer.diskStorage({ // diskStorage = vou armazenar no disco de armazenamento da maquina
@@ -1007,6 +1019,10 @@ const upload = multer({
 router.post('/upload',upload.single('avatar'),uploadController.uploadFile) --> rota que vai utilizar as configurações
 
 
+
+
+
+
 # -- VALINDANDO ARQUIVOS
 
 
@@ -1021,6 +1037,44 @@ const upload = multer({
         limits:{fieldSize:20000000}  -> especificar o tamanho do aceitavel para do arquivo 20mb
         
     })
+
+
+
+
+
+# -- Lidando com erros de upload
+
+Em server.ts 
+
+Importamos: import express,{Request,Response,ErrorRequestHandler, NextFunction} from 'express' --> error de requisição
+	    import { MulterError } from 'multer' --> Tratativas de erro do multer
+		
+	
+const errorHandler : ErrorRequestHandler = (err:Error,req:Request,res:Response,next:NextFunction) =>{ --> criamos uma função passando nossos parametros de error,req,res e next
+    res.status(400) //Bad Request  --> responde que houve uma falha na requsição por parte do usuario
+    if(err instanceof MulterError){ --> se o error for do multer
+        res.json({error:err.code,errorField:err.field,errorMessage:err.message,errorName:err.name,errorStack:err.stack})
+	/*
+	  err.code -> mostra o codigo do error,
+	  err.field -> mostra o parametro da rota que esta causando error, no caso o 'avatar'
+          err.message -> mensagem de error comun especificando o error causado
+	  err.name -> o error pertece a qual depedencia, no caso 'MulterError'
+	  err.stack -> erro gigante que especifica as localizações da imagem no dispositivos e dependencias
+	*/
+    }else{ --> caso não seja 
+        console.log(err)  --> mostre o erro para o dev
+        res.json({error:'Ocorreu algum erro'}) --> e mostre o error pelo json
+    }
+
+}
+
+server.use(errorHandler) --> coloque no servidor nossa função
+
+
+
+
+
+
 
 
 
