@@ -1102,6 +1102,30 @@ tipos position: 'bottom' ,'left','right','center','top' --> permite ate a combin
 
 
 
+
+# -- DELETANDO UMA IMAGEM TEMPORARIA
+
+import {unlink} from 'fs/promises' --> imporamos o unlink do file system promises
+
+
+if(req.file){
+        const filename : string = `${req.file.filename}.jpg`
+        await sharp(req.file.path).resize(300,300,{
+             fit:sharp.fit.cover,
+             position:'center'
+        }).toFormat('jpeg').toFile(`./public/media/${filename}`)   --> depois de toda manipulação da imagem e envio para pasta media
+        await unlink(req.file.path) --> exclua ou não envie o arquivo para a pasta temp
+        res.json({image:`${filename}`})
+    }else{
+        res.status(400).json({error:'Arquivo inválido'})
+    }
+
+
+
+
+
+
+
 # -- Autenticação Email
 
 Autenticação = identeificar quem esta tentando acessar o sistema
