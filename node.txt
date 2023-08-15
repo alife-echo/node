@@ -1158,3 +1158,21 @@ RefreshToken = sempre me será gerado um token, quando expirar o anterior
    JWT(Json Web Token) = Feito pelo servidor, o server gera o token e manda para o usuario, token serve para identificar um acesso, que é lido pelo servidor, o token sempre será enviado no cabeçalho da requisição
  
 
+
+
+
+# --  Introdução a Testes, TDD e Tipos
+
+ - Testes são pedaços de código que voce cria para ter certeza que uma parte do sistema continua funcionando
+
+ - TDD (Test-Driven Development) = Desenvolvimento orientado a testes
+
+ - Tipos de testes:
+
+ -- Testes unitários(unit test) --> testar uma parte isolada do codigo, apenas uma unidade de codigo  Ex: testar a um model e a conexão com banco de dados ainda é um teste unitario
+pois ainda estou testando uma parte isolada(unidade de codigo)
+
+ -- Testes de integração (integration test) --> testar se uma parte e outra parte de codigo funcionam juntas Ex: Criar um usuario e logar com usuario
+
+ -- Testes end-to-end (e2e test) --> teste que parte da experiencia do usuario, usando telas(interfaces) geralmente focados na interface
+
