@@ -1176,3 +1176,103 @@ pois ainda estou testando uma parte isolada(unidade de codigo)
 
  -- Testes end-to-end (e2e test) --> teste que parte da experiencia do usuario, usando telas(interfaces) geralmente focados na interface
 
+
+
+# -- Configurando o Jest no seu projeto
+
+npm install -D jest ts-jest @types/jest  --> Instalando Jest e types
+
+npx ts-jest config:init --> criar jest.config.js : propriedades de configurações do jest
+
+
+jest.config.js
+
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  detectOpenHandles:true --> adicionar esse propriedade para detectar requisiçoes e processos assicronos
+};
+
+
+em scripts do package.json : 
+
+- Observação  não precisa do 'set' no linux
+
+ "scripts": {
+    "test": "set NODE_ENV=test& jest --runInBand", --> colocar o test para rodar o jest em em sequencia 
+    "start-dev": "nodemon -e ts,json src/server.ts"
+  },
+
+
+
+# -- Criando uma função apartir do teste
+
+import {Math} from './Math'
+
+describe('describe group test',()=>{}) --> sintaxe para criar uma grupo de testes
+
+it('finally or objective of test',()=>{}) -> sintaxe pra criar um teste unitario/individual
+
+expect(Math.mult(5,10)).toBe(50) -> maneira para chamar uma função e testa-la, fica dentro do it
+
+expect = espero
+toBe = que seja/resultado
+
+
+describe('Test lib math',()=>{
+    it('should  sum two number correctly',()=>{
+        const response =   Math.sum(5,10)
+        expect(response).toBe(15)
+    })
+    it('should  subtract two numbers correctly',()=>{
+         const response = Math.sub(4,2)
+         expect(response).toBe(2)
+    })
+    it('should  multiply two numbers correctly',()=>{
+        const response = Math.mult(5,2)
+        expect(response).toBe(10)
+        expect(Math.mult(0,3)).toBe(0)
+    })
+    it('should  divisor two numbers correctly',()=>{
+        const response = Math.div(8,2)
+        expect(response).toBe(4)
+        expect(Math.div(15,5)).toBe(3)
+        expect(Math.div(3,0)).toBe(false)
+	toBeFalsy() --> verificar se o valor é falso
+        toBeTruthy() --> verificar se o valor é verdadeiro
+    })
+})
+
+
+
+# -- Tipos de Matches
+
+describe('types matches',()=>{
+    
+    it('count caracter in string',()=>{
+         expect('alife').toHaveLength(5) // verifica se uma string possui o tamanho 5
+    })
+    it('verify property email',()=>{
+         const response = {
+             name:'Álife',
+             email:'suporte@b7web.com'
+         }
+         expect(response).toHaveProperty('email') // verifica se o objeto possui a proprieadade email
+         //expect(response).toBeUndefined() // verifica a variavel esta indefinida
+        // expect(response).not.toBeUndefined() // verifica se a variavel não é undefined
+        })
+    it('verify numbers',()=>{
+         const number = 20
+         expect(number).toBeGreaterThan(15) // verifica se a variavel é maior que 15
+         expect(number).toBeGreaterThanOrEqual(18) //verifica se o numero é maior ou igual a 18
+         expect(number).toBeLessThan(50) // verifica se o valor é menor que 50
+         expect(number).toBeLessThanOrEqual(50) //verifica se o valor é menor ou igual a 50
+        })
+    it('check if a string is an email',()=>{
+        const response = 'alife.silva@unifesspa.edu.br'
+        expect(response).toMatch(/^[^\s@]+@unifesspa\.edu\.br$/)
+         
+    })
+})
+
