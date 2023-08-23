@@ -1276,3 +1276,11 @@ describe('types matches',()=>{
     })
 })
 
+
+
+# -- Lifecycle para teste 
+
+    beforeEach(()=>{}) // -- função que executa antes de cada teste
+    afterEach(()=>{}) //--> função que executa depois de cada teste
+    beforeAll(()=>{}) // --> executa antes de qualquer teste
+    afterAll(()=>{}) //  --> executa depois de qualquer teste
