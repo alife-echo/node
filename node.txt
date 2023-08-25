@@ -1418,4 +1418,50 @@ export default db
 
 
 
+# -- Teste do service:
+
+
+import * as UserService from './UserService'
+import {User,UserInstance} from '../models/User'
+import exp from 'constants'
+ describe.only('Testing user service',()=>{
+    const mock = {
+         email:'alifesilva90@gmail.com',       --> dados fakes para teste
+         password:'1234'
+    }
+    beforeAll( async ()=>{
+         await User.sync({force:true}) --> antes do teste iniciar crie uma tabela chamada usuario
+     })
+     it('should create a new user ',async ()=>{
+          const newUser = await UserService.createUser(mock.email,mock.password) as UserInstance --> crie um usuario
+          expect(newUser).not.toBeInstanceOf(Error) --> espere que o novo usuario não tenha error, se não tiver , o usuario foi criado com sucesso
+          expect(newUser).toHaveProperty('id') --> espere que o usuario tenha a propriedade id , se o usuario for criado
+          expect(newUser.email).toBe(mock.email) --> espere que o usuario criado tenha o email igual ao do mock, se o usuario for criado com sucesso
+        })
+     it('should not allow to create a user with existing email',async()=>{
+        const newUser = await UserService.createUser(mock.email,mock.password) as UserInstance      
+        expect(newUser).toBeInstanceOf(Error) ---> espera um error do usuario caso seja inserido o mesmo valo de email e senha
+     })
+     it('should find a user by the email',async ()=>{
+         const findUser = await UserService.findByEmail(mock.email) as UserInstance
+         expect(findUser.email).toBe(mock.email) espera que o email do usuario encontrado seja o mesmo do fornecido
+     })
+     it('Should match the password from database', async()=>{
+        const findUser = await UserService.findByEmail(mock.email) as UserInstance
+        const match =  UserService.matchPassword(mock.password,findUser.password)
+        expect(match).toBeTruthy() --> espera que a comparação de senha seja verdadeira
+     })
+     it('Should not match the password from database', async()=>{
+        const findUser = await UserService.findByEmail(mock.email) as UserInstance
+        const match =  UserService.matchPassword('invalid',findUser.password) --> passando outro valor de senha para forçar error
+        expect(match).toBeFalsy() --> espera que a comparação de senha seja falsa
+     })
+     it('should get a list of user',async()=>{
+         const users = await UserService.all()
+         expect(users.length).toBeGreaterThanOrEqual(1) --> espera que a lista possua um tamanho maior ou igual a 1
+         for(let i in users){
+            expect(users[i]).toBeInstanceOf(User) --> espera que cada usuario seja da instancia User ou verifica se a lista é de usuarios
+         }
+     })
+})
 
