@@ -1284,3 +1284,138 @@ describe('types matches',()=>{
     afterEach(()=>{}) //--> função que executa depois de cada teste
     beforeAll(()=>{}) // --> executa antes de qualquer teste
     afterAll(()=>{}) //  --> executa depois de qualquer teste
+
+
+# -- INSTALAR BCRYPT
+
+npm install bcrypt
+
+npm install -D @types/bcrypt
+
+
+# -- CRIANDO SERVICES PARA AUTH
+
+UserService.ts:
+
+export const createUser = async (email:string,password:string) => {
+    const hasUser = await User.findOne({where:{email}})
+    if(!hasUser){
+        const hash = bcrypt.hashSync(password,10)
+        const newUser = await User.create({
+            email,
+            password:hash
+        })
+        return newUser
+    }
+    else{
+        return new Error ('É-mail já existe')
+    }
+}
+export const findByEmail = async (email:string) =>{
+    return await User.findOne({where:{email}})
+}
+export const matchPassword = (passwordText:string,encrypted:string)=>{
+    return bcrypt.compareSync(passwordText,encrypted)
+}
+export const all = async () => {
+    return await User.findAll()
+
+
+apiController.ts:
+
+export const ping = (req: Request, res: Response) => {
+    res.json({pong: true});
+}
+//controleer apenas verifica os campos e pega os valores do campo e mandar para o service
+export const register = async (req: Request, res: Response) => {
+    if(req.body.email && req.body.password) {
+        let { email, password } = req.body;
+        const newUser = await UserService.createUser(email,password)
+        if(newUser instanceof Error){
+            res.status(400).json({error:newUser.message})
+        }
+        else {
+            res.status(201).json({ id: newUser.id });
+        }
+    }
+    else {
+        res.status(400).json({ error: 'E-mail e/ou senha não enviados.' });
+    }
+  
+}
+
+export const login = async (req: Request, res: Response) => {
+    if(req.body.email && req.body.password) {
+        let email: string = req.body.email;
+        let password: string = req.body.password;
+        const user = await UserService.findByEmail(email)
+        if(user && UserService.matchPassword(password,user.password)) {
+            res.json({ status: true });
+            return;
+        }
+    }
+
+    res.json({ status: false });
+}
+
+export const list = async (req: Request, res: Response) => {
+    let users = await UserService.all()
+    let list: string[] = [];
+
+    for(let i in users) {
+        list.push( users[i].email );
+    }
+
+    res.json({ list });
+}
+
+
+
+# -- CRIANDO BANCO DE DADOS PARA TESTES
+
+Variaveis de  ambiente para testes
+
+MYSQL_TEST_DB=auths_test
+MYSQL_TEST_USER=root
+MYSQL_TEST_PASSWORD=senhapadraodoalife
+MYSQL_TEST_PORT=3306
+
+instances/mysql.ts:
+
+import { Sequelize } from "sequelize";
+import doteenv from 'dotenv'
+import db from "./database";
+doteenv.config()
+
+export const sequelize = new Sequelize( ->-- torno os dados  para acessar o banco relativos, se for acesso normal, usa os dados do banco, se for para testes, usa o banco de testes
+     db.db,
+     db.user,
+     db.password, {
+         dialect:'mysql',
+         port:parseInt(db.port) 
+     }
+)
+
+em instances/database.ts:
+
+import dotenv from 'dotenv'
+dotenv.config()
+let db = {
+        db:process.env.MYSQL_DB  as string,
+        user:process.env.MYSQL_USER as string,
+        password:process.env.MYSQL_PASSWORD as string,
+        port: process.env.MYSQL_PORT as string
+}
+if(process.env.NODE_ENV === 'test'){
+    db={
+        db:process.env.MYSQL_TEST_DB  as string,
+        user:process.env.MYSQL_TEST_USER as string,
+        password:process.env.MYSQL_TEST_PASSWORD as string,
+        port: process.env.MYSQL_TEST_PORT as string
+    }
+}
+export default db
+
+
+
+
