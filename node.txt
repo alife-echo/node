@@ -1465,3 +1465,168 @@ import exp from 'constants'
      })
 })
 
+
+
+
+# -- Testes de requisição
+
+npm install -D supertest @types/supertest -> instalação do supertest
+
+app.ts:
+
+import express, { Request, Response, ErrorRequestHandler } from 'express';
+import path from 'path';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import apiRoutes from './routes/api';
+
+dotenv.config();
+
+const server = express();
+
+server.use(cors());
+
+server.use(express.static(path.join(__dirname, '../public')));
+server.use(express.urlencoded({ extended: true }));
+
+server.get('/ping', (req: Request, res: Response) => res.json({ pong: true }));
+
+server.use(apiRoutes);
+
+server.use((req: Request, res: Response) => {
+    res.status(404);
+    res.json({ error: 'Endpoint não encontrado.' });
+});
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    res.status(400); // Bad Request
+    console.log(err);
+    res.json({ error: 'Ocorreu algum erro.' });
+}
+server.use(errorHandler);
+
+export default server
+
+
+
+
+
+server.ts:
+
+import app from './app'
+import dotenv from 'dotenv'  ---> no server.ts agora importamos as configurações de server do app para  criação de testes de requisições utilizando o supertest
+
+dotenv.config()
+
+app.listen(process.env.PORT)
+
+
+
+
+
+
+api.test.ts:
+
+
+
+import request from 'supertest'
+import app from '../app'
+import { User } from '../models/User'
+describe('Testing api routers',()=>{
+    const mock = {
+         email:'test@jest.com',
+         password:'1234'
+    }
+    beforeAll( async ()=>{
+        await User.sync({force:true})
+    })
+    it('should return ping pong',(done)=>{
+         request(app) --> cria outro server para testar as nossas requisições
+         .get('/ping')
+         .then(response => {
+             expect(response.body.pong).toBeTruthy() --> espera que o conteudo do json da requisição seja true
+             return done() --> indicar para o supertest que o teste em especifico ja acabou
+         })
+    })
+
+    it('should register a new user',(done)=>{
+        request(app)
+        .post('/register')
+        .send(`email=${mock.email}&password=${mock.password}`)
+        .then(response => {
+            expect(response.body.error).toBeUndefined() --> espera que não tenha erro
+            expect(response.body).toHaveProperty('id') --> espera que o body tenha uma proprieadade id
+            return done()
+        })
+   })
+   it('should not allow to register with existing email',(done)=>{
+    request(app)
+    .post('/register')
+    .send(`email=${mock.email}&password=${mock.password}`)
+    .then(response => {
+        expect(response.body.error).not.toBeUndefined() --> espera que tenha erro por causa do reenvio de dados
+        return done()
+    })
+})
+it('should not allow to register without password',(done)=>{
+    request(app)
+    .post('/register')
+    .send(`email=${mock.email}`)
+    .then(response => {
+        expect(response.body.error).not.toBeUndefined()
+        return done()
+    })
+})
+it('should not allow to register without email',(done)=>{
+    request(app)
+    .post('/register')
+    .send(`password=${mock.password}`)
+    .then(response => {
+        expect(response.body.error).not.toBeUndefined()
+        return done()
+    })
+})
+it('should not allow to register without any data',(done)=>{
+    request(app)
+    .post('/register')
+    .send(``)
+    .then(response => {
+        expect(response.body.error).not.toBeUndefined()
+        return done()
+    })
+})
+it('should login correctly',(done)=>{
+    request(app)
+    .post('/login')
+    .send(`email=${mock.email}&password=${mock.password}`)
+    .then(response => {
+        expect(response.body.error).toBeUndefined()
+        expect(response.body.status).toBeTruthy()
+        return done()
+    })
+})
+it('should not login with incorrect data',(done)=>{
+    request(app)
+    .post('/login')
+    .send(`email=${mock.email}&password=invalid`)
+    .then(response => {
+        expect(response.body.error).toBeUndefined()
+        expect(response.body.status).toBeFalsy()
+        return done()
+    })
+})
+it('should list users',(done)=>{
+    request(app)
+    .get('/list')
+    .then(response => {
+        expect(response.body.error).toBeUndefined()
+        expect(response.body.list.length).toBeGreaterThanOrEqual(1)
+        expect(response.body.list).toContain(mock.email)
+        return done()
+    })
+})
+})
+
+
+
+
